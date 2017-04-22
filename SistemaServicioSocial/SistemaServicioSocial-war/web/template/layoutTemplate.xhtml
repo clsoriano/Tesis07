@@ -33,7 +33,15 @@
                                     <b:navLink header="Menu" />
                                     <b:navLink value="Dashboard" active="true" icon="glyphicon glyphicon-stats" href="/SistemaServicioSocial-war/faces/index.xhtml"/>
                                     <b:navLink href="#" value="Reportes" icon="glyphicon glyphicon-file"/>
-                                    <b:accordion expanded-panels="Herramientas,Mantenimiento">
+                                    <b:accordion expanded-panels="Solicitudes,Herramientas,Mantenimiento">
+                                        <b:panel title="Solicitudes">
+                                            <b:listLinks>
+                                                <b:navLink value="Formularios" iconAwesome="fa fa-window-maximize" 
+                                                           href="/SistemaServicioSocial-war/faces/solicitud/listFormulario.xhtml"></b:navLink>
+                                                <b:navLink value="Demo" iconAwesome="fa-puzzle-piece" 
+                                                           href="/SistemaServicioSocial-war/faces/solicitud/listFormulario.xhtml"></b:navLink>
+                                            </b:listLinks>
+                                        </b:panel>
                                         <b:panel title="Herramientas">
                                             <b:listLinks>
                                                 <b:navLink value="Menu" icon="glyphicon glyphicon-list" 

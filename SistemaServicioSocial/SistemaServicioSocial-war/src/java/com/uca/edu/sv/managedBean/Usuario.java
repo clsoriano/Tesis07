@@ -7,7 +7,7 @@ package com.uca.edu.sv.managedBean;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ManagedBean;
 
 /**

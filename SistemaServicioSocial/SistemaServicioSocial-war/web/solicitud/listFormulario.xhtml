@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form>
+            <b:form>
+                <p:panel header="Formularios" toggleable="true">
+                    <b:dataTable>
+                        <b:dataTableColumn label="Formulario">
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="Descripcion">
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="Tipo Formulario">
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="Estado">
+                        </b:dataTableColumn>
+                    </b:dataTable>
+                    <b:commandButton value="Agregar" iconAwesome="fa-plus" onclick="$('.modalNewForm').modal();return false;"/>
+                    <b:commandButton value="Modificar" iconAwesome="fa-pencil"/>
+                    <b:commandButton value="Eliminar" iconAwesome="fa-trash"/>
+                    <p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true" height="100">
+                        <h:outputText value="This is a Modal Dialog." />
+                    </p:dialog>
+                    <b:modal id="amodal" title="Nuevo Formulario" styleClass="modalNewForm"
+                             closable="false" close-on-escape="false" backdrop="false">
+                        <h:form id="lfFormulario">
+                            <h:panelGrid columns="2" cellpadding="5" style="margin-bottom:10px">
+                                <p:outputLabel value="Nombre Formulario:"/>
+                                <b:inputText id="lfNombreForm" size="80"/>
+                                <p:outputLabel value="Descripcion: "/>
+                                <b:inputText id="lfDescripcionForm"/>
+                                <p:outputLabel value="Tipo Formulario: "/>
+                                <b:selectOneMenu renderLabel="true" required="true" requiredMessage="Please provide the form of address.">
+                                    <f:facet name="append">
+                                        <b:iconAwesome name="list"/>
+                                    </f:facet>
+                                    <f:selectItem itemLabel="- Seleccionar - " />
+                                    <f:selectItem itemLabel="Instituciones" />
+                                    <f:selectItem itemLabel="Campus" />
+                                    <f:selectItem itemLabel="Instructoria" />
+                                </b:selectOneMenu>
+                                <p:outputLabel value="Estado:"/>
+                                <b:selectOneMenu renderLabel="true" required="true" requiredMessage="Please provide the form of address.">
+                                    <f:facet name="append">
+                                        <b:iconAwesome name="list"/>
+                                    </f:facet>
+                                    <f:selectItem itemLabel="Activo" />
+                                    <f:selectItem itemLabel="Inactivo" />
+                                </b:selectOneMenu>
+                            </h:panelGrid>   
+                        </h:form>            
+                        <f:facet name="footer">
+                            <b:commandButton value="Cancelar" onclick="return false;" iconAwesome="fa-close" look="danger" ajax="true" update="@form"/>
+                            <b:commandButton value="Guardar" look="success" onclick="return false;" icon="glyphicon glyphicon-floppy-saved"/>
+                        </f:facet>
+                    </b:modal>
+                </p:panel>
+                <p:panel header="Campos" toggleable="true">
+                    <b:dataTable>
+                        <b:dataTableColumn label="Etiqueta">
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="Descripcion">
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="Tipo campo">
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="Estado">
+                        </b:dataTableColumn>
+                    </b:dataTable>
+                    <b:commandButton value="Agregar" iconAwesome="fa-plus"/>
+                    <b:commandButton value="Modificar" iconAwesome="fa-pencil"/>
+                    <b:commandButton value="Eliminar" iconAwesome="fa-trash"/>
+                </p:panel>
+            </b:form>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
