@@ -12,19 +12,19 @@
                     <path-in-war>/</path-in-war>
                 </library>
                 <library>
-                    <file>${reference.SistemaServicioSocial.dist-ear}</file>
+                    <file>${reference.SistemaServicioSocial-ejb.dist}</file>
                     <path-in-war>/</path-in-war>
                 </library>
             </web-module-additional-libraries>
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>
-                <foreign-project>SistemaServicioSocial</foreign-project>
-                <artifact-type>j2ee_ear_archive</artifact-type>
+                <foreign-project>SistemaServicioSocial-ejb</foreign-project>
+                <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
-                <target>dist-ear</target>
-                <clean-target>clean-ear</clean-target>
-                <id>dist-ear</id>
+                <target>dist</target>
+                <clean-target>clean</clean-target>
+                <id>dist</id>
             </reference>
             <reference>
                 <foreign-project>SistemaServicioSocial-war</foreign-project>
