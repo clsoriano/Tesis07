@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:define name="content">
+        <h:form>
+            <h1>Usuarios</h1>
+            <p><b:commandButton value="Nuevo" look="primary" icon="glyphicon glyphicon-plus" onclick="window.location.href = '/SistemaServicioSocial-war/faces/mantenimiento/usuario.xhtml';return false;"/></p>
+            <b:form>
+                <b:dataTable>
+                    <b:dataTableColumn label="Nombre">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Descripcion">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Estado">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Adicionado por">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Fecha adicion">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Modificado por"></b:dataTableColumn>
+                    <b:dataTableColumn label="Fecha modificacion"></b:dataTableColumn>
+                </b:dataTable>
+            </b:form>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

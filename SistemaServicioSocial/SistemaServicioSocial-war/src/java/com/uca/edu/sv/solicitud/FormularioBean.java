@@ -5,7 +5,13 @@
  */
 package com.uca.edu.sv.solicitud;
 
+import com.uca.edu.sv.facade.SsCampoFormularioFacade;
+import com.uca.edu.sv.facade.SsFormularioFacade;
+import com.uca.edu.sv.ss.SsCampoFormulario;
+import com.uca.edu.sv.ss.SsFormulario;
 import java.io.Serializable;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ManagedBean;
 
@@ -15,7 +21,58 @@ import javax.faces.bean.ManagedBean;
  */
 @ManagedBean(name = "formularioBean")
 @RequestScoped
-public class FormularioBean implements Serializable{
-    
-    
+public class FormularioBean implements Serializable {
+
+    @EJB
+    private SsFormularioFacade ssFormularioFacade;
+    @EJB
+    private SsCampoFormularioFacade ssCampoFormularioFacade;
+    private SsFormulario ssFormulario;
+    private SsCampoFormulario ssCampoFormulario;
+
+    public void formulario() {
+        this.ssFormulario = new SsFormulario();
+    }
+
+    public void campoFormulario() {
+        this.ssCampoFormulario = new SsCampoFormulario();
+    }
+
+    public SsCampoFormulario getSsCampoFormulario() {
+        return this.ssCampoFormulario;
+    }
+
+    public SsFormulario getSsFormulario() {
+        return this.ssFormulario;
+    }
+
+    public List<SsFormulario> getListSsFormulario() {
+        List<SsFormulario> listSsFormulario = null;
+        try {
+            listSsFormulario = ssFormularioFacade.findAll();
+        } catch (Exception ex) {
+
+        }
+        return listSsFormulario;
+    }
+
+    public List<SsFormulario> getListSsCampoFormulario() {
+        List<SsFormulario> listSsFormulario = null;
+        try {
+            listSsFormulario = ssFormularioFacade.findAll();
+        } catch (Exception ex) {
+
+        }
+        return listSsFormulario;
+    }
+
+    public String saveSsFormulario() {
+        ssFormularioFacade.create(this.ssFormulario);
+        return "listFormulario?faces-redirect=true";
+    }
+
+    public String saveSsCampoFormulario() {
+        ssCampoFormularioFacade.create(this.ssCampoFormulario);
+        return "listFormulario?faces-redirect=true";
+    }
 }
