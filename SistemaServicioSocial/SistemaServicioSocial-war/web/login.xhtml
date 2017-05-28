@@ -4,7 +4,8 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <h:outputStylesheet name="css/default.css"/>
         <h:outputStylesheet name="css/cssLayout.css"/>
@@ -24,19 +25,28 @@
         <b:container>
             <h:form styleClass="form-signin" prependId="false">
                 <h2 class="form-signin-heading" style="color:white;">Iniciar sesión</h2>
-                <b:inputText id="email" placeholder="Usuario/Email address" >
+                <b:inputText id="email" placeholder="Usuario/Email address" value="#{manageLogin.user}" required="true">
                     <f:facet name="prepend">
                         <b:icon name="user" />
                     </f:facet>
                 </b:inputText>
-                <b:inputText id="password" placeholder="Contraseña" type="password">
+                <b:inputText id="password" placeholder="Contraseña" type="password" value="#{manageLogin.password}" required="true">
                     <f:facet name="prepend">
                         <b:iconAwesome name="key" />
                     </f:facet>
                 </b:inputText>
                 <!--b:selectBooleanCheckbox value="true" caption="Recordarme"/-->
                 <b:commandButton look="primary btn-block" value="Ingresar" icon="log-in" size="lg" 
-                                 onclick="window.location.href = '/SistemaServicioSocial-war/faces/index.xhtml';return false;"/>
+                                 action="#{manageLogin.validateUser()}" ajax="true" update="growlSpecific" process="@form @this"/>
+                <b:label text="Registrar solicitud de proyecto." />
+                <b:growl id="growlSpecific" placementFrom="bottom" show-detail="true"
+                         global-only="false"
+                         show-summary="true" 
+                         allow-dismiss="true"
+                         animation-enter="animated bounceInDown"
+                         animation-exit="animated flipOutX"
+                         escape="true"                         
+                         class="alert alert-danger"/>
             </h:form>
         </b:container>        
     </h:body>

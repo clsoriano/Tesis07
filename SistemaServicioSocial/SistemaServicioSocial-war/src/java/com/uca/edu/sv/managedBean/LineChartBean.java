@@ -11,13 +11,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
 
 /**
  *
  * @author jcsoriano
  */
-@ManagedBean(name = "lineChartBean")
+@Named
 @RequestScoped
 public class LineChartBean implements Serializable {
 

@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -18,7 +19,13 @@
             <ui:insert name="top">
                 <b:navBar brand="Servicio Social" brandHref="#" inverse="true">
                     <b:navbarLinks pull="right">
-                        <b:navLink href="#" value="Salir" icon="glyphicon glyphicon-off" onclick="$('.modalPseudoClass').modal();return false;"/>
+                        <b:dropMenu value="" iconAwesome="fa-envelope">
+                            <b:navLink value="Solicitudes" href="#" icon="glyphicon glyphicon-exclamation-sign"></b:navLink>
+                        </b:dropMenu>
+                        <b:dropMenu value="" icon="glyphicon glyphicon-user">
+                            <b:navLink value="Info" href="#" onclick="$('.modalUserLog').modal();return false;" icon="glyphicon glyphicon-exclamation-sign"></b:navLink>
+                            <b:navLink href="#" value="Salir" icon="glyphicon glyphicon-off" onclick="$('.modalPseudoClass').modal();return false;"/>
+                        </b:dropMenu>
                     </b:navbarLinks>
                 </b:navBar>
             </ui:insert>
@@ -31,42 +38,22 @@
                             <b:column col-sm="3" col-md="2" styleClass="sidebar" style="background-color: #292b2c;">
                                 <b:listLinks>
                                     <b:navLink header="Menu" />
-                                    <b:navLink value="Dashboard" active="true" icon="glyphicon glyphicon-stats" href="/SistemaServicioSocial-war/faces/index.xhtml"/>
-                                    <b:navLink href="#" value="Reportes" icon="glyphicon glyphicon-file"/>
-                                    <b:accordion expanded-panels="Solicitudes,Herramientas,Mantenimiento">
-                                        <b:panel title="Solicitudes">
-                                            <b:listLinks>
-                                                <b:navLink value="Formularios" iconAwesome="fa fa-window-maximize" 
-                                                           href="/SistemaServicioSocial-war/faces/solicitud/listFormulario.xhtml"></b:navLink>
-                                                <b:navLink value="Demo" iconAwesome="fa-puzzle-piece" 
-                                                           href="/SistemaServicioSocial-war/faces/solicitud/listFormulario.xhtml"></b:navLink>
-                                            </b:listLinks>
-                                        </b:panel>
-                                        <b:panel title="Herramientas">
-                                            <b:listLinks>
-                                                <b:navLink value="Menu" icon="glyphicon glyphicon-list" 
-                                                           href="#"></b:navLink>
-                                                <b:navLink value="Roles" icon="glyphicon glyphicon-user"
-                                                           href="#"></b:navLink>
-                                            </b:listLinks>
-                                        </b:panel>
-                                        <b:panel title="Mantenimiento">
-                                            <b:listLinks>
-                                                <b:navLink value="Usuarios" icon="glyphicon glyphicon-user" 
-                                                           href="/SistemaServicioSocial-war/faces/listasMantenimiento/listaUsuario.xhtml"></b:navLink>
-                                                <b:navLink value="Alumnos" icon="glyphicon glyphicon-user"
-                                                           href="/SistemaServicioSocial-war/faces/listasMantenimiento/listaAlumno.xhtml"></b:navLink>
-                                                <b:navLink value="Proyectos" icon="glyphicon glyphicon-blackboard" 
-                                                           href="/SistemaServicioSocial-war/faces/listasMantenimiento/listaProyecto.xhtml"></b:navLink>
-                                            </b:listLinks>
-                                        </b:panel>
-                                    </b:accordion>
-                                </b:listLinks>
-                                <b:listLinks>
-                                    <b:navLink value="Control de asistencia" icon="glyphicon glyphicon-time"/>
-                                    <b:navLink value="Solicitudes" icon="glyphicon glyphicon-exclamation-sign"/>
-                                    <b:navLink value="Acerca de" icon="glyphicon glyphicon-paperclip" onclick="$('.modalArcecade').modal();return false;"/>
-                                    <b:navLink value="Salir" icon="glyphicon glyphicon-off" onclick="$('.modalPseudoClass').modal();return false;"/>
+                                    <ui:repeat var="menuOp" value="#{principal.ssMenu}">
+                                        <b:navLink value="#{menuOp.descripcion}" 
+                                                   iconAwesome="#{menuOp.icon}" 
+                                                   href="#{menuOp.url}" rendered="#{menuOp.subMenu==null}"
+                                                   onclick="#{menuOp.funcion}"/>
+                                        <b:accordion rendered="#{menuOp.subMenu!=null}">
+                                            <b:panel title="#{menuOp.descripcion}">
+                                                <b:listLinks>
+                                                    <ui:repeat value="#{menuOp.subMenu}" var="subMenu">
+                                                        <b:navLink value="#{subMenu.descripcion}" iconAwesome="#{subMenu.icon}" 
+                                                                   href="#{subMenu.url}" onclick="#{subMenu.funcion}"/>                                                        
+                                                    </ui:repeat>
+                                                </b:listLinks>
+                                            </b:panel>
+                                        </b:accordion>
+                                    </ui:repeat>                                    
                                 </b:listLinks>
                             </b:column>                            
                         </b:row>
@@ -94,6 +81,20 @@
                                           onclick="window.location.href = '/SistemaServicioSocial-war/faces/login.xhtml';return false;"/>
                             </f:facet>
                         </b:modal>
+                        <b:modal id="logueado" title="Usuario Logueado" styleClass="modalUserLog"
+                                 closable="false" close-on-escape="false" backdrop="false">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <p:outputLabel value="Usuario:"/>
+                                <p:outputLabel value="Juan Carlos Soriano Ramirez"/>
+                                <p:outputLabel value="Rol:"/>
+                                <p:outputLabel value="Administrador"/>
+                                <p:outputLabel value="Fecha Logueo:"/>
+                                <p:outputLabel value="28/04/2017"/>
+                            </h:panelGrid>
+                            <f:facet name="footer">
+                                <b:button value="Ok" dismiss="modal" onclick="return false;"/>
+                            </f:facet>
+                        </b:modal>
                         <!--Cerrar sesion-->
                     </b:container> 
                     <style type="text/css">
@@ -110,6 +111,13 @@
                         @media (min-width: 768px) {
                             .navbar {
                                 border-radius: 0px;
+                                padding-bottom: 2px;
+                                padding-top: 2px;
+                                background-repeat: repeat-x;
+                                left: 0;
+                                position: fixed;
+                                right: 0;
+                                z-index: 1030;
                             }
                             .sidebar {
                                 background-color: #292b2c;
@@ -155,6 +163,10 @@
                             border-color: 292b2c;
                         }
 
+                        .panel-title{
+                            font-size: 14px;
+                        }
+
                         .nav > li > a:hover, .nav > li > a:focus{
                             background-color: black;
                             color: white;
@@ -197,9 +209,18 @@
                     </style>
                 </ui:insert>
             </div>
-            <div id="content">
+            <div id="content" style="padding-top: 85px;padding-bottom: 85px;">
                 <b:column col-sm="9" offset-sm="3" col-md="10" offset="2" styleClass="main">
                     <ui:insert name="content"></ui:insert>
+                    <b:growl id="growlGlobalError" placementFrom="bottom" show-detail="true"
+                             global-only="false"
+                             show-summary="true" 
+                             allow-dismiss="true"
+                             animation-enter="animated bounceInDown"
+                             animation-exit="animated flipOutX"
+                             escape="true"                         
+                             class="alert alert-danger"
+                             />
                 </b:column>
             </div>
         </div>

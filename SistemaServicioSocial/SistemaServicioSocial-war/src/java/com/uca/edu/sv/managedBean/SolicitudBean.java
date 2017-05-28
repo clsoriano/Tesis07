@@ -6,7 +6,7 @@
 package com.uca.edu.sv.managedBean;
 
 import java.io.Serializable;
-import java.util.List;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 
@@ -16,19 +16,6 @@ import javax.inject.Named;
  */
 @Named
 @ViewScoped
-public class Usuario implements Serializable{
+public class SolicitudBean implements Serializable {
     
-    /**
-     * Creates a new instance of Usuario
-     */
-    public Usuario() {
-    }
-    
-    public List<Usuario> getUsuarios(){
-        return null;
-    }
-    
-    public String renderUsuario(){
-        return "usuario";
-    }
 }

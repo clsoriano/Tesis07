@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <ui:define name="content">
+        <h:form>
+            <h1><p:outputLabel value="Aprobacion"/></h1>
+            <b:well><b:iconAwesome name="fa-exclamation-circle" />Nueva linea de aprobacion</b:well>
+            <p:panel>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="Tipo de Proyecto:"/>
+                    <h:outputLabel value = "Instituciones"/>
+                    <h:outputText value="Nombre:"/>
+                    <h:outputLabel value="Complejo educativo Salvadoreño"/>
+                    <h:outputText value="Descripcion de Proyecto:"/>
+                    <h:outputLabel value="Se requiere apoyo de estudiantes para apoyo de estudios basicos"/>
+                    <h:outputText value="Descargar documento adjunto:"/> 
+                    <b:commandButton value="Documento Pdf" look="primary" iconAwesome="fa-file-pdf-o"/>
+                    <h:outputText value="Ingresado por:"/>    
+                    <h:outputLabel value="Juan Carlos Soriano Ramirez"/>
+                    <h:outputText value="Fecha de ingreso:"/>    
+                    <h:outputLabel value="20/04/2017"/>
+                </h:panelGrid>
+                <f:facet name="footer">
+                    <b:commandButton value="Cancelar" look="danger" iconAwesome="fa-times" action="#{consultaLineaDeAprobacion.cancelarLineaDeAprobacion()}" ajax="true" process="@this"/>
+                    <b:commandButton value="Rechazar Solicitud" iconAwesome="fa-exclamation-triangle" look="warning" onclick="$('.rechazarModalLinea').modal();return false;"/>
+                    <b:commandButton value="Aceptar" iconAwesome="fa-line-chart" look="primary" onclick="$('.saveModalLinea').modal();return false;"/>
+                </f:facet>
+            </p:panel>
+            <p:panel header="Listas de personas asociadas a proyecto" toggleable="true">
+                <b:dataTable>
+                    <b:dataTableColumn label="Tipo de proyecto">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Nombre Proyecto">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Estado">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Adicionado por">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Fecha adicion">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Modificado por"></b:dataTableColumn>
+                    <b:dataTableColumn label="Fecha modificacion"></b:dataTableColumn>
+                    <b:dataTableColumn label="CRUD"><b:button value="Mod" look="warning" icon="glyphicon glyphicon-pencil"/><b:button value="Eli" look="warning" icon="glyphicon glyphicon-trash"/></b:dataTableColumn>
+                </b:dataTable>
+                <f:facet name="footer">
+                    <b:commandButton value="Agregar Persona" iconAwesome="fa-plus"/>
+                    <b:commandButton value="Eliminar" iconAwesome="fa-trash"/>
+                </f:facet>
+            </p:panel>
+            <b:modal id="amodal" title="Guardar" styleClass="saveModalLinea"
+                     closable="false" close-on-escape="false" backdrop="false">
+                <p:outputLabel value="Esta seguro de almacenar linea de aprobacion?"/>
+                <f:facet name="footer">
+                    <b:button value="Cancelar" dismiss="modal" onclick="return false;"/>
+                    <b:button value="Si" look="danger" dismiss="modal" 
+                              onclick="window.location.href = '/SistemaServicioSocial-war/faces/aprobacion/lineaDeAprobacion.xhtml';return false;"/>
+                </f:facet>
+            </b:modal>
+            <b:modal id="aModalRec" title="Rechazo de proyecto" styleClass="rechazarModalLinea"
+                     closable="false" close-on-escape="false" backdrop="false">
+                <p:outputLabel value="Esta seguro de rechazar el proyecto?"/>
+                <f:facet name="footer">
+                    <b:button value="Cancelar" dismiss="modal" onclick="return false;"/>
+                    <b:button value="Si" look="danger" dismiss="modal" 
+                              onclick="window.location.href = '/SistemaServicioSocial-war/faces/aprobacion/lineaDeAprobacion.xhtml';return false;"/>
+                </f:facet>
+            </b:modal>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

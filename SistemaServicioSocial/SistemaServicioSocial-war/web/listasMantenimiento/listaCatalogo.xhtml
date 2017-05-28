@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="catalogos">
+            <h3 class="glyphicon glyphicon-list">
+                <p:outputLabel value="Catalogos"/>
+            </h3>
+            <p:panel header="Catalogo" toggleable="true">
+                <b:dataTable value="#{catalogoBean.listSsTipoCatalogo}" 
+                             var="catalogo"
+                             selectionMode="single"
+                             onselect="#{catalogoBean.setSelectedCatalogo(catalogo)}"
+                             select="true"
+                             update="growlGlobalError detCatalogos:detCatalogo">
+                    <b:dataTableColumn label="Codigo Tipo Catalogo"  value="#{catalogo.codTipo}"/>
+                    <b:dataTableColumn label="Nombre" value="#{catalogo.valor}"/>
+                    <b:dataTableColumn label="Descripcion" value="#{catalogo.descripcion}"/>
+                    <b:dataTableColumn label="Estado" value="#{catalogo.estado}"/>
+                </b:dataTable> 
+                <f:facet name="footer">
+                    <b:commandButton value="Agregar" iconAwesome="fa-plus" update="@this" oncomplete="$('.modalNewCatalogo').modal();return false;"/>
+                    <b:commandButton value="Modificar" iconAwesome="fa-pencil"/>
+                    <b:commandButton value="Eliminar" iconAwesome="fa-trash"/>
+                </f:facet>
+                <b:modal id="amodalCat" title="Nuevo Catalago" styleClass="modalNewCatalogo"
+                         closable="false" close-on-escape="false" backdrop="false">
+                    <h:form id="lfCatalogo">
+                        <h:panelGrid columns="2" cellpadding="5" style="margin-bottom:10px">
+                            <p:outputLabel value="Codigo tipo catalogo:"/>
+                            <b:inputText id="catCodTipCatalogo" size="80" value="#{catalogoBean.ssTipoCatalogo.codCatalogo}"/>
+                            <p:outputLabel value="Descripcion: "/>
+                            <b:inputText id="catDescripcion" value="#{catalogoBean.ssTipoCatalogo.descripcion}"/>
+                            <p:outputLabel value="Valor:"/>
+                            <b:inputText id="catValor" value="#{catalogoBean.ssTipoCatalogo.valor}"/>
+                            <p:outputLabel value="Estado:"/>
+                            <b:selectOneMenu renderLabel="true" value="#{catalogoBean.ssTipoCatalogo.estado}" required="true" requiredMessage="Please provide the form of address.">
+                                <f:facet name="append">
+                                    <b:iconAwesome name="list"/>
+                                </f:facet>
+                                <f:selectItem itemLabel="Activo" itemValue="A"/>
+                                <f:selectItem itemLabel="Inactivo" itemValue="I"/>
+                            </b:selectOneMenu>
+                        </h:panelGrid>   
+                    </h:form>  
+                    <f:facet name="footer">
+                        <b:button value="Cancelar" look="danger" onclick="return false;" iconAwesome="fa-close" dismiss="modal"/>
+                        <b:commandButton value="Guardar" look="success" icon="glyphicon glyphicon-floppy-saved" process="@form @this" action="#{catalogoBean.saveCatalogo()}" size="sm"/>                            
+                    </f:facet>
+                </b:modal>
+            </p:panel>
+        </h:form>
+        <h:form id="detCatalogos">
+            <p:panel header="Detalle Catalogo" toggleable="true" id="pDetCatalogo">
+                <b:dataTable id="detCatalogo" 
+                             value="#{catalogoBean.lisSsSubCatalogo}" 
+                             var="dtCat">
+                    <b:dataTableColumn label="Codigo Sub Catalogo"  value="#{dtCat.codSubCatalogo}"/>
+                    <b:dataTableColumn label="Descripcion" value="#{dtCat.descripcion}"/>
+                    <b:dataTableColumn label="Valor" value="#{dtCat.valor}"/>
+                    <b:dataTableColumn label="Estado" value="#{dtCat.estado}"/>
+                </b:dataTable>
+                <f:facet name="footer">
+                    <b:commandButton value="Agregar" iconAwesome="fa-plus" oncomplete="$('.modalDetalleCatalogo').modal();return false;" update="@this"/>
+                    <b:commandButton value="Modificar" iconAwesome="fa-pencil"/>
+                    <b:commandButton value="Eliminar" iconAwesome="fa-trash"/>
+                </f:facet>
+                <b:modal id="amodalDetCat" title="Nuevo Detalle Catalago" styleClass="modalDetalleCatalogo"
+                         closable="false" close-on-escape="false" backdrop="false">
+                    <h:form id="lfDetaCatalogo">
+                        <h:panelGrid columns="2" cellpadding="5" style="margin-bottom:10px">
+                            <p:outputLabel value="Codigo tipo catalogo:"/>
+                            <b:inputText id="detaCodTipCatalogo" size="80" value="#{catalogoBean.ssSubCatalogo.codTipo}" disabled="true"/>
+                            <p:outputLabel value="Descripcion: "/>
+                            <b:inputText id="catDescripcion" value="#{catalogoBean.ssSubCatalogo.descripcion}"/>
+                            <p:outputLabel value="Valor: "/>
+                            <b:inputText id="detaValor" value="#{catalogoBean.ssSubCatalogo.valor}"/>
+                            <p:outputLabel value="Estado:"/>
+                            <b:selectOneMenu renderLabel="true" value="#{catalogoBean.ssSubCatalogo.estado}" required="true" requiredMessage="Please provide the form of address.">
+                                <f:facet name="append">
+                                    <b:iconAwesome name="list"/>
+                                </f:facet>
+                                <f:selectItem itemLabel="Activo" itemValue="A"/>
+                                <f:selectItem itemLabel="Inactivo" itemValue="I"/>
+                            </b:selectOneMenu>
+                        </h:panelGrid>   
+                    </h:form>  
+                    <f:facet name="footer">
+                        <b:button value="Cancelar" look="danger" onclick="return false;" iconAwesome="fa-close" dismiss="modal"/>
+                        <b:commandButton value="Guardar" process="@form @this" look="success" icon="glyphicon glyphicon-floppy-saved" size="sm" actionListener="#{catalogoBean.saveSubCatalogo()}"/>                            
+                    </f:facet>
+                </b:modal>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

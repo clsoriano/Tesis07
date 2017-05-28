@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <ui:define name="content">
+        <h:form>
+            <h1>Proceso de aprobacion</h1>
+            <b:well><b:iconAwesome name="fa-user" />Proyectos</b:well>
+            <h:panelGrid id="grid" columns="2" cellpadding="5">
+                <h:outputText value="Tipo de Proyecto:"/>
+                <b:selectOneMenu renderLabel="true" required="true" requiredMessage="Seleccionar tipo de proyecto.">
+                    <f:facet name="append">
+                        <b:iconAwesome name="list"/>
+                    </f:facet>
+                    <f:selectItem itemLabel="- Seleccionar -" itemValue=""/>
+                    <f:selectItem itemLabel="Externos" itemValue="A"/>
+                    <f:selectItem itemLabel="Internos" itemValue="I"/>
+                    <f:selectItem itemLabel="Instituciones del Gobierno" itemValue="G"/>
+                    <f:selectItem itemLabel="Instituciones Educativas" itemValue="E"/>
+                </b:selectOneMenu>
+                <h:outputText value="Nombre de proyecto:"/>
+                <b:selectOneMenu renderLabel="true" required="true" requiredMessage="Seleccionar proyecto.">
+                    <f:facet name="append">
+                        <b:iconAwesome name="list"/>
+                    </f:facet>
+                    <f:selectItem itemLabel="- Seleccionar -" itemValue=""/>
+                    <f:selectItem itemLabel="Diseño de Pagina Web" itemValue="P"/>
+                    <f:selectItem itemLabel="Apoyo en TECHO" itemValue="T"/>
+                    <f:selectItem itemLabel="Apoyo en ordenamiento de base" itemValue="B"/>
+                </b:selectOneMenu>
+                <h:outputText value="Fecha inicio:"/>
+                <b:inputText placeholder="Fecha inicio">
+                    <f:facet name="append">
+                        <b:iconAwesome name="fa-calendar"/>
+                    </f:facet>
+                </b:inputText>
+                <h:outputText value="Fecha Fin:"/>
+                <b:inputText placeholder="Fecha fin">
+                    <f:facet name="append">
+                        <b:iconAwesome name="fa-calendar"/>
+                    </f:facet>
+                </b:inputText>
+                <b:button value="Buscar" look="success" icon="glyphicon glyphicon-search"/>
+                <!--<b:commandButton value="Crear Linea de aprobacion" look="primary" iconAwesome="fa-line-chart" action="#{consultaLineaDeAprobacion.crearLineaDeAprobacion()}" process="@this" ajax="true"/>-->
+            </h:panelGrid>
+        </h:form>
+        <h:form>
+            <p:panel header="Lista de solicitudes" toggleable="true">
+                <b:dataTable>
+                    <b:dataTableColumn label="Tipo de proyecto">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Nombre Proyecto">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Estado">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Adicionado por">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Fecha adicion">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Modificado por"></b:dataTableColumn>
+                    <b:dataTableColumn label="Fecha modificacion"></b:dataTableColumn>
+                </b:dataTable>
+                <f:facet name="footer">
+                    <b:commandButton value="Ver Solicitud" iconAwesome="fa-line-chart" look="primary" onclick="$('.verSolicitud').modal();return false;"/>
+                    <b:commandButton value="Eliminar Solicitud" iconAwesome="fa-trash"/>
+                </f:facet>
+            </p:panel>
+            <!--            <p:panel header="Personas asociadas a linea de aprobacion" toggleable="true">
+                            <b:dataTable>
+                                <b:dataTableColumn label="Usuario">
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Nombre Completo">
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Cargo">
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Adicionado por">
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Fecha adicion">
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Modificado por"></b:dataTableColumn>
+                                <b:dataTableColumn label="Fecha modificacion"></b:dataTableColumn>
+                                <b:dataTableColumn label="CRUD"><b:button value="Mod" look="warning" icon="glyphicon glyphicon-pencil"/><b:button value="Eli" look="warning" icon="glyphicon glyphicon-trash"/></b:dataTableColumn>
+                            </b:dataTable> 
+                            <f:facet name="footer">
+                                <b:commandButton value="Modificar" iconAwesome="fa-pencil"/>
+                                <b:commandButton value="Eliminar" iconAwesome="fa-trash"/>
+                            </f:facet>
+                        </p:panel>-->
+
+            <b:modal id="aModalSolicitud" title="Aprobacion/Rechazo de proyecto" styleClass="verSolicitud"
+                     closable="false" close-on-escape="false" backdrop="false">
+                <b:well><b:iconAwesome name="fa-exclamation-circle" />Solicitud</b:well>
+                <p:panel>
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputText value="Tipo de Proyecto:"/>
+                        <h:outputLabel value = "Instituciones"/>
+                        <h:outputText value="Nombre:"/>
+                        <h:outputLabel value="Complejo educativo Salvadoreño"/>
+                        <h:outputText value="Descripcion de Proyecto:"/>
+                        <h:outputLabel value="Se requiere apoyo de estudiantes para apoyo de estudios basicos"/>
+                        <h:outputText value="Descargar documento adjunto:"/> 
+                        <b:commandButton value="Documento Pdf" look="primary" iconAwesome="fa-file-pdf-o"/>
+                        <h:outputText value="Ingresado por:"/>    
+                        <h:outputLabel value="Juan Carlos Soriano Ramirez"/>
+                        <h:outputText value="Fecha de ingreso:"/>    
+                        <h:outputLabel value="20/04/2017"/>
+                    </h:panelGrid>
+                    <f:facet name="footer">
+                        <b:commandButton value="Cancelar" look="danger" iconAwesome="fa-times" action="#{consultaLineaDeAprobacion.cancelarLineaDeAprobacion()}" ajax="true" process="@this"/>
+                        <b:commandButton value="Rechazar Solicitud" iconAwesome="fa-exclamation-triangle" look="warning" onclick="$('.justificacion').modal();return false;"/>
+                        <b:commandButton value="Aceptar" iconAwesome="fa-line-chart" look="primary" onclick="$('.saveModalLinea').modal();return false;"/>
+                    </f:facet>
+                </p:panel>
+            </b:modal>
+            <b:modal id="aModalJustificacion" title="Ingreso de justificacion" styleClass="justificacion"
+                     closable="false" close-on-escape="false" backdrop="false">
+                <p:outputLabel value="Justificacion"/>
+                <p:inputText value=""/>
+                <f:facet name="footer">
+                    <b:commandButton value="Aceptar" iconAwesome="fa-line-chart" look="primary" onclick="return false;"/>
+                </f:facet>
+            </b:modal>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

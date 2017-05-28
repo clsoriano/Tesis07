@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:define name="content">
+        <h:form>
+            <h1>Proyectos</h1>
+            <b:well><b:iconAwesome name="fa-archive"/>Activos</b:well>
+            <b:well>
+
+                <b:dataTable value="#{proyecto.listProyecto}" var="p">
+                    <b:dataTableColumn label="Institucion">
+                        <h:outputText value="#{p.institucion}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Proyecto/Actividad">
+                        <h:outputText value="#{p.actividad}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Perfil/alumno">
+                        <h:outputText value="#{p.perfil}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Inicio">
+                        <h:outputText value="#{p.inicio}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Horario dias">
+                        <h:outputText value="#{p.horario}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Tipo de servicio">
+                        <h:outputText value="#{p.tipoServicio}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Responsable">
+                        <h:outputText value="#{p.responsable}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Estado">
+                        <h:outputText value="#{p.estado=='A' ? 'Activo' : 'Inactivo'}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="">
+                        <b:commandButton value="Inscribirse" look="primary" action="#{p.inscripcionProyecto()}" process="@this" ajax="true"/>
+                    </b:dataTableColumn>
+                </b:dataTable>
+            </b:well>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

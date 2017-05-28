@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.uca.edu.sv.solicitud;
+package com.uca.edu.sv.managedBean;
 
 import com.uca.edu.sv.facade.SsCampoFormularioFacade;
 import com.uca.edu.sv.facade.SsFormularioFacade;
@@ -13,13 +13,13 @@ import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
 
 /**
  *
  * @author jcsoriano
  */
-@ManagedBean(name = "formularioBean")
+@Named
 @RequestScoped
 public class FormularioBean implements Serializable {
 

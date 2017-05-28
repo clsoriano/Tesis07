@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <ui:define name="content">
+        <h1>Inscripcion</h1>
+        <h:form>
+            <b:well><b:iconAwesome name="fa-list-alt" />Inscripción de Estudiantes en Servicio Social Interno</b:well>
+            <b:well>
+                <b:panelGrid columns="4" id="panel1">
+                    <p:outputLabel value="Contraparte o departamento academico:" style="font-size: 14px; width: 300px;"/>
+                    <b:inputText maxlength="10"/>
+                    <p:outputLabel value="Nombre de la actividad o proyecto:" style="font-size: 14px; width: 300px;"/>
+                    <b:inputText/>
+                    <p:outputLabel value="Fecha:" style="font-size: 14px; width: 300px;"/>
+                    <b:inputText/>
+                    <p:outputLabel value="Encargado(a):" style="font-size: 14px; width: 300px;"/>
+                    <b:inputText/>
+                    <p:outputLabel value="Firma y sello:" style="font-size: 14px; width: 300px;"/>
+                    <b:inputText/>
+                    <p:outputLabel value="Coordinador(a) de la actividad o proyecto:" style="font-size: 14px; width: 300px;"/>
+                    <b:inputText/>
+                    <p:outputLabel value="Carne:" style="font-size: 14px; width: 300px;"/>
+                    <b:inputText maxlength="10"/>
+                    <p:outputLabel value="Primer Nombre:" style="font-size: 14px; width: 300px;"/>
+                    <b:inputText/>
+                    <p:outputLabel value="Segundo Nombre:" style="font-size: 14px; width: 300px;"/>
+                    <b:inputText/>
+                    <p:outputLabel value="Primer Apellido:" style="font-size: 14px; width: 300px;"/>
+                    <b:inputText/>
+                    <p:outputLabel value="Segundo Apellido:" style="font-size: 14px; width: 300px;"/>
+                    <b:inputText/>
+                    <p:outputLabel value="Carrera:" style="font-size: 14px; width: 300px;"/>
+                    <b:selectOneMenu>
+                        <f:facet name="append">
+                            <b:iconAwesome name="list"/>
+                        </f:facet>
+                        <f:selectItem itemLabel="Lic. Ciencias de la computacion" itemValue="1"/>
+                        <f:selectItem itemLabel="Comunicaciones" itemValue="2"/>
+                        <f:selectItem itemLabel="Ingenieria industrial" itemValue="3"/>
+                    </b:selectOneMenu>
+                </b:panelGrid>
+            </b:well>
+            <b:well>
+                <p:outputLabel>Nota: Se les recuerda que las carreras de arquitectura, comunicaciones, ingeniería civil y psicología tienen restricciones para realizar servicio social interno.</p:outputLabel>
+            </b:well> 
+            <b:commandButton value="Guardar" look="primary"/>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

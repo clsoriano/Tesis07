@@ -10,12 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
 
 /**
  *
  * @author jcsoriano
  */
-@ManagedBean(name = "proyecto")
+@Named
 @RequestScoped
 public class Proyecto implements Serializable{
     
@@ -26,6 +27,7 @@ public class Proyecto implements Serializable{
     private String horario;
     private String responsable;
     private String estado;
+    private String tipoServicio;
 
     public String getInstitucion() {
         return institucion;
@@ -75,6 +77,14 @@ public class Proyecto implements Serializable{
         this.responsable = responsable;
     }
 
+    public String getTipoServicio() {
+        return tipoServicio;
+    }
+
+    public void setTipoServicio(String tipoServicio) {
+        this.tipoServicio = tipoServicio;
+    }
+
     public String getEstado() {
         return estado;
     }
@@ -95,6 +105,7 @@ public class Proyecto implements Serializable{
         p.setHorario("2 horas diarias");
         p.setResponsable("Elsy Mavel Rivera erivera@uca.edu.sv Ext. 621");
         p.setEstado("A");
+        p.setTipoServicio("Interno");
         proyectos.add(p);
         p = new Proyecto();
         p.setInstitucion("Departamento de organizacion del espacio");
@@ -104,7 +115,12 @@ public class Proyecto implements Serializable{
         p.setHorario("6 horas a la semana");
         p.setResponsable("Elsy Mavel Rivera erivera@uca.edu.sv Ext. 621");
         p.setEstado("I");
+        p.setTipoServicio("Externo");
         proyectos.add(p);
         return proyectos;
+    }
+    
+    public String inscripcionProyecto(){
+        return "solicitudInterna?faces-redirect=true";
     }
 }

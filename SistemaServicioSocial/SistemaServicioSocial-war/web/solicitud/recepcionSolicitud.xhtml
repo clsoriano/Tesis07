@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <ui:define name="content">
+        <h1>Inscripcion</h1>
+        <h:form>
+            <b:well><b:iconAwesome name="fa-list-alt" />Inscripcion de solicitudes externas</b:well>
+            <b:well>
+                <b:panelGrid columns="4">
+                    <p:outputLabel value="Nombre de institucion:" style="font-size: 14px; width: 300px;"/>
+                    <b:inputText maxlength="10"/>
+                    <p:outputLabel value="Descripcion de solicitud:" style="font-size: 14px; width: 300px;"/>
+                    <b:inputText maxlength="10"/>
+                    <p:outputLabel value="Departamento:" style="font-size: 14px; width: 300px;"/>
+                    <b:selectOneMenu>
+                        <f:facet name="append">
+                            <b:iconAwesome name="list"/>
+                        </f:facet>
+                        <f:selectItem itemLabel="San Salvador" itemValue="1"/>
+                        <f:selectItem itemLabel="La Libertad" itemValue="2"/>
+                        <f:selectItem itemLabel="La Paz" itemValue="3"/>
+                    </b:selectOneMenu>
+                    <p:outputLabel value="Municipio:" style="font-size: 14px; width: 300px;"/>
+                    <b:selectOneMenu>
+                        <f:facet name="append">
+                            <b:iconAwesome name="list"/>
+                        </f:facet>
+                        <f:selectItem itemLabel="San Salvador" itemValue="1"/>
+                        <f:selectItem itemLabel="Mejicanos" itemValue="2"/>
+                        <f:selectItem itemLabel="Antiguo" itemValue="3"/>
+                    </b:selectOneMenu>
+                    <p:outputLabel value="Copia solicitud (PDF):" style="font-size: 14px; width: 300px;"/>
+                    <p:fileUpload />
+                </b:panelGrid>
+            </b:well>
+            <b:well>
+                <p>Nota:El archivo pdf no sustituye carta enviada a departamento de servicio social</p>
+            </b:well>
+            <b:commandButton look="primary btn-block" value="Enviar Solicitud" icon="log-in" size="lg"  ajax="true"/>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

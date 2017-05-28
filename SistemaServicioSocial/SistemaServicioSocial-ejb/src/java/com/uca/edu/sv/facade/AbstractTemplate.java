@@ -49,14 +49,13 @@ public class AbstractTemplate<T> implements Serializable {
 
     }
 
-    public List<T> createQueryNombra(String nombreQuery, Class<?> clase) throws Exception {
+    public List<T> createQueryNombra(String nombreQuery, Class<?> clase) {
         TypedQuery query = getEntityManager().createNamedQuery(nombreQuery, clase);
         return (List<T>) query.getResultList();
     }
 
     public List<T> createQueryListNombra(String nombreQuery, HashMap<?, Object> parametros, Class<?> clase) {
         TypedQuery query = getEntityManager().createNamedQuery(nombreQuery, clase);
-        query.setParameter(nombreQuery, clase);
         return (List<T>) setParametros(query, parametros).getResultList();
 
     }

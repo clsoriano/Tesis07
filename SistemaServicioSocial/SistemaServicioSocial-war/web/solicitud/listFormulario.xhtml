@@ -9,97 +9,34 @@
 
     <ui:define name="content">
         <h:form>
-            <b:form>
-                <p:panel header="Formularios" toggleable="true">
-                    <b:dataTable value="#{formularioBean.listSsFormulario}" var="formulario">
-                        <b:dataTableColumn label="Formulario">
-                            <h:outputText value="#{formulario.nombre}"/>
-                        </b:dataTableColumn>
-                        <b:dataTableColumn label="Descripcion">
-                            <h:outputText value="#{formulario.descripcion}"/>
-                        </b:dataTableColumn>
-                        <b:dataTableColumn label="Tipo Formulario">
-                            <h:outputText value="#{formulario.codInstitucion}"/>
-                        </b:dataTableColumn>
-                        <b:dataTableColumn label="Estado">
-                            <h:outputText value="#{formulario.estado}"/>
-                        </b:dataTableColumn>
-                    </b:dataTable>
-                    <b:commandButton value="Agregar" iconAwesome="fa-plus" onclick="$('.modalNewForm').modal();return false;" action="#{formularioBean.formulario()}"/>
-                    <b:commandButton value="Modificar" iconAwesome="fa-pencil"/>
-                    <b:commandButton value="Eliminar" iconAwesome="fa-trash"/>                    
-                    <b:modal id="amodal" title="Nuevo Formulario" styleClass="modalNewForm"
-                             closable="false" close-on-escape="false" backdrop="false">
-                        <h:form id="lfFormulario">
-                            <h:panelGrid columns="2" cellpadding="5" style="margin-bottom:10px">
-                                <p:outputLabel value="Nombre Formulario:"/>
-                                <b:inputText id="lfNombreForm" size="80" value="#{formularioBean.ssFormulario.nombre}"/>
-                                <p:outputLabel value="Descripcion: "/>
-                                <b:inputText id="lfDescripcionForm" value="#{formularioBean.ssFormulario.descripcion}"/>
-                                <p:outputLabel value="Tipo Formulario: "/>
-                                <b:selectOneMenu renderLabel="true" value="#{formularioBean.ssFormulario.codInstitucion}" required="true" requiredMessage="Please provide the form of address.">
-                                    <f:facet name="append">
-                                        <b:iconAwesome name="list"/>
-                                    </f:facet>
-                                    <f:selectItem itemLabel="- Seleccionar - " />
-                                    <f:selectItem itemLabel="Instituciones" itemValue="1"/>
-                                    <f:selectItem itemLabel="Campus" itemValue="2"/>
-                                    <f:selectItem itemLabel="Instructoria" itemValue="3"/>
-                                </b:selectOneMenu>
-                                <p:outputLabel value="Estado:"/>
-                                <b:selectOneMenu renderLabel="true" value="#{formularioBean.ssFormulario.estado}" required="true" requiredMessage="Please provide the form of address.">
-                                    <f:facet name="append">
-                                        <b:iconAwesome name="list"/>
-                                    </f:facet>
-                                    <f:selectItem itemLabel="Activo" itemValue="A"/>
-                                    <f:selectItem itemLabel="Inactivo" itemValue="I"/>
-                                </b:selectOneMenu>
-                            </h:panelGrid>   
-                        </h:form>  
-                        <f:facet name="footer">
-                            <b:button value="Cancelar" look="danger" onclick="return false;" iconAwesome="fa-close" dismiss="modal"/>
-                            <b:commandButton value="Guardar" look="success" icon="glyphicon glyphicon-floppy-saved" action="#{formularioBean.saveSsFormulario()}" size="sm"/>                            
-                        </f:facet>
-                    </b:modal>
-                </p:panel>
-                <p:panel header="Campos" toggleable="true">
-                    <b:dataTable>
-                        <b:dataTableColumn label="Etiqueta">
-                        </b:dataTableColumn>
-                        <b:dataTableColumn label="Descripcion">
-                        </b:dataTableColumn>
-                        <b:dataTableColumn label="Tipo campo">
-                        </b:dataTableColumn>
-                        <b:dataTableColumn label="Estado">
-                        </b:dataTableColumn>
-                    </b:dataTable>
-                    <b:commandButton value="Agregar" iconAwesome="fa-plus" onclick="$('.modalNewCampo').modal();return false;"/>
-                    <b:commandButton value="Modificar" iconAwesome="fa-pencil"/>
-                    <b:commandButton value="Eliminar" iconAwesome="fa-trash"/>
-                </p:panel>
-                <b:modal id="amodal" title="Campo Formulario" styleClass="modalNewCampo"
+            <p:panel header="Formularios" toggleable="true">
+                <b:dataTable value="#{formularioBean.listSsFormulario}" var="formulario">
+                    <b:dataTableColumn label="Formulario">
+                        <h:outputText value="#{formulario.nombre}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Descripcion">
+                        <h:outputText value="#{formulario.descripcion}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Tipo Formulario">
+                        <h:outputText value="#{formulario.codInstitucion}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Estado">
+                        <h:outputText value="#{formulario.estado}"/>
+                    </b:dataTableColumn>
+                </b:dataTable>
+                <b:commandButton value="Agregar" iconAwesome="fa-plus" onclick="$('.modalNewForm').modal();return false;" action="#{formularioBean.formulario()}"/>
+                <b:commandButton value="Modificar" iconAwesome="fa-pencil"/>
+                <b:commandButton value="Eliminar" iconAwesome="fa-trash"/>                    
+                <b:modal id="amodalFormulario" title="Nuevo Formulario" styleClass="modalNewForm"
                          closable="false" close-on-escape="false" backdrop="false">
-                    <h:form id="lfCampoFormulario">
+                    <h:form id="lfFormulario">
                         <h:panelGrid columns="2" cellpadding="5" style="margin-bottom:10px">
                             <p:outputLabel value="Nombre Formulario:"/>
-                            <b:inputText id="cpNombreForm" size="80" value="#{formularioBean.ssCampoFormulario.etiqueta}"/>
+                            <b:inputText id="lfNombreForm" size="80" value="#{formularioBean.ssFormulario.nombre}"/>
                             <p:outputLabel value="Descripcion: "/>
-                            <b:inputText id="cpDescripcion" value="#{formularioBean.ssCampoFormulario.descripcion}"/>
-                            <p:outputLabel value="Ayuda: "/>
-                            <b:inputText id="cpAyuda" value="#{formularioBean.ssCampoFormulario.ayuda}"/>
-                            <p:outputLabel value="Mascara: "/>
-                            <b:inputText id="cpMascara" value="#{formularioBean.ssCampoFormulario.mascara}"/>
-                            <p:outputLabel value="Requerido?: "/>
-                            <b:selectOneMenu id="cpMascara" value="#{formularioBean.ssCampoFormulario.esCampoRequerido}">
-                                <f:facet name="append">
-                                    <b:iconAwesome name="list"/>
-                                </f:facet>
-                                <f:selectItem itemLabel="- Seleccionar -" />
-                                <f:selectItem itemLabel="Si" itemValue="S"/>
-                                <f:selectItem itemLabel="No" itemValue="N"/>
-                            </b:selectOneMenu>
-                            <p:outputLabel value="Tipo Campo: "/>
-                            <b:selectOneMenu renderLabel="true" value="#{formularioBean.ssCampoFormulario.codTipoCampo}" required="true" requiredMessage="Please provide the form of address.">
+                            <b:inputText id="lfDescripcionForm" value="#{formularioBean.ssFormulario.descripcion}"/>
+                            <p:outputLabel value="Tipo Formulario: "/>
+                            <b:selectOneMenu renderLabel="true" value="#{formularioBean.ssFormulario.codInstitucion}" required="true" requiredMessage="Please provide the form of address.">
                                 <f:facet name="append">
                                     <b:iconAwesome name="list"/>
                                 </f:facet>
@@ -123,7 +60,70 @@
                         <b:commandButton value="Guardar" look="success" icon="glyphicon glyphicon-floppy-saved" action="#{formularioBean.saveSsFormulario()}" size="sm"/>                            
                     </f:facet>
                 </b:modal>
-            </b:form>
+            </p:panel>
+            <p:panel header="Campos" toggleable="true">
+                <b:dataTable>
+                    <b:dataTableColumn label="Etiqueta">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Descripcion">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Tipo campo">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Estado">
+                    </b:dataTableColumn>
+                </b:dataTable>
+                <b:commandButton value="Agregar" iconAwesome="fa-plus" onclick="$('.modalNewCampo').modal();return false;"/>
+                <b:commandButton value="Modificar" iconAwesome="fa-pencil"/>
+                <b:commandButton value="Eliminar" iconAwesome="fa-trash"/>
+                <b:modal id="amodalCampo" title="Campo Formulario" styleClass="modalNewCampo"
+                         closable="false" close-on-escape="false" backdrop="false">
+                    <h:form id="lfCampoFormulario">
+                        <h:panelGrid columns="2" cellpadding="5" style="margin-bottom:10px">
+                            <p:outputLabel value="Nombre Formulario:"/>
+                            <b:inputText id="cpNombreForm" size="80" value="#{formularioBean.ssCampoFormulario.etiqueta}"/>
+                            <p:outputLabel value="Descripcion: "/>
+                            <b:inputText id="cpDescripcion" value="#{formularioBean.ssCampoFormulario.descripcion}"/>
+                            <p:outputLabel value="Ayuda: "/>
+                            <b:inputText id="cpAyuda" value="#{formularioBean.ssCampoFormulario.ayuda}"/>
+                            <p:outputLabel value="Mascara: "/>
+                            <b:inputText id="cpMascara" value="#{formularioBean.ssCampoFormulario.mascara}"/>
+                            <p:outputLabel value="Requerido?: "/>
+                            <b:selectOneMenu id="cpRequerido" value="#{formularioBean.ssCampoFormulario.esCampoRequerido}">
+                                <f:facet name="append">
+                                    <b:iconAwesome name="list"/>
+                                </f:facet>
+                                <f:selectItem itemLabel="- Seleccionar -" />
+                                <f:selectItem itemLabel="Si" itemValue="S"/>
+                                <f:selectItem itemLabel="No" itemValue="N"/>
+                            </b:selectOneMenu>
+                            <p:outputLabel value="Longitud: "/>
+                            <b:inputText id="cpLongitud" value="#{formularioBean.ssCampoFormulario.longitud}"/>
+                            <p:outputLabel value="Tipo Campo: "/>
+                            <b:selectOneMenu renderLabel="true" value="#{formularioBean.ssCampoFormulario.codTipoCampo}" required="true" requiredMessage="Please provide the form of address.">
+                                <f:facet name="append">
+                                    <b:iconAwesome name="list"/>
+                                </f:facet>
+                                <f:selectItem itemLabel="- Seleccionar - " /> 
+                                <f:selectItem itemLabel="Instituciones" itemValue="1"/>
+                                <f:selectItem itemLabel="Campus" itemValue="2"/>
+                                <f:selectItem itemLabel="Instructoria" itemValue="3"/>
+                            </b:selectOneMenu>
+                            <p:outputLabel value="Estado:"/>
+                            <b:selectOneMenu renderLabel="true" value="#{formularioBean.ssFormulario.estado}" required="true" requiredMessage="Please provide the form of address.">
+                                <f:facet name="append">
+                                    <b:iconAwesome name="list"/>
+                                </f:facet>
+                                <f:selectItem itemLabel="Activo" itemValue="A"/>
+                                <f:selectItem itemLabel="Inactivo" itemValue="I"/>
+                            </b:selectOneMenu>
+                        </h:panelGrid>   
+                    </h:form>  
+                    <f:facet name="footer">
+                        <b:button value="Cancelar" look="danger" onclick="return false;" iconAwesome="fa-close" dismiss="modal"/>
+                        <b:commandButton value="Guardar" look="success" icon="glyphicon glyphicon-floppy-saved" action="#{formularioBean.saveSsFormulario()}" size="sm"/>                            
+                    </f:facet>
+                </b:modal>
+            </p:panel>
         </h:form>
     </ui:define>
 

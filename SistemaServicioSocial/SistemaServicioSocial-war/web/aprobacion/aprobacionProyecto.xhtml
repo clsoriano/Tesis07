@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">
+        <h:form>
+            <h3>
+                Reporte de proyectos por estado
+            </h3>
+            <b:well><b:iconAwesome name="fa-list-alt" />Proyectos</b:well>
+            <h:panelGrid id="grid" columns="2" cellpadding="5">
+                <h:outputText value="Tipo de Proyecto:"/>
+                <b:selectOneMenu renderLabel="true" required="true" requiredMessage="Seleccionar tipo de proyecto.">
+                    <f:facet name="append">
+                        <b:iconAwesome name="list"/>
+                    </f:facet>
+                    <f:selectItem itemLabel="- Seleccionar -" itemValue=""/>
+                    <f:selectItem itemLabel="Externos" itemValue="A"/>
+                    <f:selectItem itemLabel="Internos" itemValue="I"/>
+                    <f:selectItem itemLabel="Instituciones del Gobierno" itemValue="G"/>
+                    <f:selectItem itemLabel="Instituciones Educativas" itemValue="E"/>
+                </b:selectOneMenu>
+                <h:outputText value="Nombre de proyecto:"/>
+                <b:selectOneMenu renderLabel="true" required="true" requiredMessage="Seleccionar proyecto.">
+                    <f:facet name="append">
+                        <b:iconAwesome name="list"/>
+                    </f:facet>
+                    <f:selectItem itemLabel="- Seleccionar -" itemValue=""/>
+                    <f:selectItem itemLabel="Diseño de Pagina Web" itemValue="P"/>
+                    <f:selectItem itemLabel="Apoyo en TECHO" itemValue="T"/>
+                    <f:selectItem itemLabel="Apoyo en ordenamiento de base" itemValue="B"/>
+                </b:selectOneMenu>
+                <h:outputText value="Estado:"/>
+                <b:selectOneMenu renderLabel="true" required="true" requiredMessage="Seleccionar tipo de proyecto.">
+                    <f:facet name="append">
+                        <b:iconAwesome name="list"/>
+                    </f:facet>
+                    <f:selectItem itemLabel="- Seleccionar -" itemValue=""/>
+                    <f:selectItem itemLabel="Pendiente" itemValue="A"/>
+                    <f:selectItem itemLabel="Aprobado" itemValue="A"/>
+                    <f:selectItem itemLabel="Rechazado" itemValue="I"/>
+                </b:selectOneMenu>
+                <h:outputText value="Fecha inicio:"/>
+                <b:inputText placeholder="Fecha inicio">
+                    <f:facet name="append">
+                        <b:iconAwesome name="fa-calendar"/>
+                    </f:facet>
+                </b:inputText>
+                <h:outputText value="Fecha Fin:"/>
+                <b:inputText placeholder="Fecha fin">
+                    <f:facet name="append">
+                        <b:iconAwesome name="fa-calendar"/>
+                    </f:facet>
+                </b:inputText>
+                <b:button value="Buscar" look="success" icon="glyphicon glyphicon-search"/>
+            </h:panelGrid>
+        </h:form>
+        <h:form>
+            <p:panel header="Listas de proyectos" toggleable="true">
+                <b:dataTable>
+                    <b:dataTableColumn label="Tipo de proyecto">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Nombre Proyecto">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Estado">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Adicionado por">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Fecha adicion">
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Modificado por"></b:dataTableColumn>
+                    <b:dataTableColumn label="Fecha modificacion"></b:dataTableColumn>
+                    <b:dataTableColumn label=""><b:button value="Mod" look="warning" icon="glyphicon glyphicon-pencil"/><b:button value="Eli" look="warning" icon="glyphicon glyphicon-trash"/></b:dataTableColumn>
+                </b:dataTable>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
