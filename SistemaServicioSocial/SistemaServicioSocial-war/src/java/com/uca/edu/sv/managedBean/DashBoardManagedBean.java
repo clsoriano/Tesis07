@@ -5,11 +5,12 @@
  */
 package com.uca.edu.sv.managedBean;
 
+import com.uca.edu.sv.controller.Controller;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
@@ -20,8 +21,7 @@ import org.primefaces.model.map.Marker;
  *
  * @author jcsoriano
  */
-@Named
-@ViewScoped
+@Controller
 public class DashBoardManagedBean implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -7,28 +7,30 @@ package com.uca.edu.sv.ss;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author jcsoriano
  */
 @Entity
-@Table(name = "SS_SUB_CATALOGO")
+@Table(name = "SS_SUB_CATALOGO", schema = "SS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SsSubCatalogo.findAll", query = "SELECT s FROM SsSubCatalogo s")})
@@ -39,7 +41,12 @@ public class SsSubCatalogo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "COD_SUB_CATALOGO")
+    @SequenceGenerator(sequenceName = "SEQ_SS_SUB_CATALOGO", name = "SEQ_SS_SUB_CATALOGO", initialValue = 1, allocationSize = 1, schema = "SS")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_SS_SUB_CATALOGO")
     private Long codSubCatalogo;
+    @JoinColumn(name = "COD_CATALOGO", referencedColumnName = "COD_CATALOGO")
+    @ManyToOne
+    private SsTipoCatalogo codCatalogo;
     @Size(max = 100)
     @Column(name = "VALOR")
     private String valor;
@@ -61,8 +68,6 @@ public class SsSubCatalogo implements Serializable {
     @Column(name = "FECHA_MODIFICACION")
     @Temporal(TemporalType.DATE)
     private Date fechaModificacion;
-    @OneToMany(mappedBy = "codSubCatalogo")
-    private List<SsTipoCatalogo> ssTipoCatalogoList;
 
     public SsSubCatalogo() {
     }
@@ -135,13 +140,12 @@ public class SsSubCatalogo implements Serializable {
         this.fechaModificacion = fechaModificacion;
     }
 
-    @XmlTransient
-    public List<SsTipoCatalogo> getSsTipoCatalogoList() {
-        return ssTipoCatalogoList;
+    public SsTipoCatalogo getCodCatalogo() {
+        return codCatalogo;
     }
 
-    public void setSsTipoCatalogoList(List<SsTipoCatalogo> ssTipoCatalogoList) {
-        this.ssTipoCatalogoList = ssTipoCatalogoList;
+    public void setCodCatalogo(SsTipoCatalogo codCatalogo) {
+        this.codCatalogo = codCatalogo;
     }
 
     @Override
@@ -168,5 +172,5 @@ public class SsSubCatalogo implements Serializable {
     public String toString() {
         return "com.uca.edu.sv.ss.SsSubCatalogo[ codSubCatalogo=" + codSubCatalogo + " ]";
     }
-    
+
 }

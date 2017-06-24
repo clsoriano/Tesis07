@@ -24,6 +24,6 @@ public class SsTipoCatalogoFacade extends AbstractFacade<SsTipoCatalogo> impleme
     }
 
     public List<SsTipoCatalogo> findAll() {
-        return null;
+        return createQueryNombra("SsTipoCatalogo.findAll", SsTipoCatalogo.class);
     }
 }

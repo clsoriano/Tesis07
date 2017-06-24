@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author jcsoriano
  */
 @Entity
-@Table(name = "SS_FORMULARIO")
+@Table(name = "SS_FORMULARIO", schema = "SS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SsFormulario.findAll", query = "SELECT s FROM SsFormulario s")})
@@ -41,7 +41,7 @@ public class SsFormulario implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @SequenceGenerator(sequenceName = "SEQ_SS_FORMULARIO", name = "SEQ_SS_FORMULARIO", initialValue = 1)
+    @SequenceGenerator(sequenceName = "SEQ_SS_FORMULARIO", name = "SEQ_SS_FORMULARIO", initialValue = 1, allocationSize = 1, schema = "SS")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_SS_FORMULARIO")
     @Column(name = "COD_FORMULARIO")
     private Long codFormulario;

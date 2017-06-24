@@ -4,11 +4,13 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./../template/layoutTemplate.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:b="http://bootsfaces.net/ui"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui">
 
     <ui:define name="content">
+        <p:outputLabel value="Instructor"/>
+        <p:outputLabel value="Reclutamiento"/>
         <h:form>
             <h1>Instructor</h1>
             <b:well><b:iconAwesome name="fa fa-list"/>Reclutamiento</b:well>
@@ -29,7 +31,7 @@
                         <b:inputText/>
                         <p:outputLabel value="Telefono Movil:" style="font-size: 14px; width: 300px;"/>
                         <b:inputText/>
-                        <p:outputLabel value="e-mail:"/>
+                    <p:outputLabel value="e-mail:"/>
                         <b:inputText/>                
                         <p:outputLabel value="Carrera:" style="font-size: 14px; width: 300px;"/>
                         <b:inputText/>
@@ -38,11 +40,11 @@
                             <f:facet name="append">
                                 <b:iconAwesome name="list"/>
                             </f:facet>
-                            <f:selectItem itemLabel="Primer ciclo" itemValue="1"/>
-                            <f:selectItem itemLabel="Segundo ciclo" itemValue="2"/>
-                            <f:selectItem itemLabel="Tercer ciclo" itemValue="3"/>
-                            <f:selectItem itemLabel="Cuarto ciclo" itemValue="4"/>
-                            <f:selectItem itemLabel="Quinto ciclo" itemValue="5"/>
+                    <f:selectItem itemLabel="Primer ciclo" itemValue="1"/>
+                    <f:selectItem itemLabel="Segundo ciclo" itemValue="2"/>
+                    <f:selectItem itemLabel="Tercer ciclo" itemValue="3"/>
+                    <f:selectItem itemLabel="Cuarto ciclo" itemValue="4"/>
+                    <f:selectItem itemLabel="Quinto ciclo" itemValue="5"/>
                         </b:selectOneMenu>
                         <p:outputLabel value="Número de materias aprobadas (si es menor que 20 se rechazará el formulario):" 
                                        style="font-size: 14px; width: 300px;"/>
@@ -59,18 +61,18 @@
                             <f:facet name="append">
                                 <b:iconAwesome name="list"/>
                             </f:facet>
-                            <f:selectItem itemLabel="Fisica I" itemValue="1"/>
-                            <f:selectItem itemLabel="Mate II" itemValue="2"/>
-                            <f:selectItem itemLabel="Termodinamica" itemValue="3"/>
+                        <f:selectItem itemLabel="Fisica I" itemValue="1"/>
+                        <f:selectItem itemLabel="Mate II" itemValue="2"/>
+                        <f:selectItem itemLabel="Termodinamica" itemValue="3"/>
                         </b:selectOneMenu>
                         <p:outputLabel value="Segunda Opcion:" style="font-size: 14px; width: 300px;"/>
                         <b:selectOneMenu>
                             <f:facet name="append">
                                 <b:iconAwesome name="list"/>
                             </f:facet>
-                            <f:selectItem itemLabel="Fisica I" itemValue="1"/>
-                            <f:selectItem itemLabel="Mate II" itemValue="2"/>
-                            <f:selectItem itemLabel="Termodinamica" itemValue="3"/>
+                        <f:selectItem itemLabel="Fisica I" itemValue="1"/>
+                        <f:selectItem itemLabel="Mate II" itemValue="2"/>
+                        <f:selectItem itemLabel="Termodinamica" itemValue="3"/>
                         </b:selectOneMenu>
                         <p:outputLabel value="Ciclo para el cual solicita dar instructoria:" 
                                        style="font-size: 14px; width: 300px;"/>
@@ -78,16 +80,16 @@
                             <f:facet name="append">
                                 <b:iconAwesome name="list"/>
                             </f:facet>
-                            <f:selectItem itemLabel="Ciclo 01 2017" itemValue="1"/>
-                            <f:selectItem itemLabel="Ciclo 02 2017" itemValue="2"/>
+                        <f:selectItem itemLabel="Ciclo 01 2017" itemValue="1"/>
+                        <f:selectItem itemLabel="Ciclo 02 2017" itemValue="2"/>
                         </b:selectOneMenu>
                         <p:outputLabel value="Tipo de contratacion solicitada:" style="font-size: 14px; width: 300px;"/>
                         <b:selectOneMenu>
                             <f:facet name="append">
                                 <b:iconAwesome name="list"/>
                             </f:facet>
-                            <f:selectItem itemLabel="Servicio Social" itemValue="1"/>
-                            <f:selectItem itemLabel="Remunerada" itemValue="2"/>
+                        <f:selectItem itemLabel="Servicio Social" itemValue="1"/>
+                        <f:selectItem itemLabel="Remunerada" itemValue="2"/>
                         </b:selectOneMenu>
                         <p:outputLabel value="Nota con que aprobo la materia para la cual solicita instructoria en 1a opcion:" 
                                        style="font-size: 14px; width: 300px;"/>
@@ -97,8 +99,6 @@
                         <b:inputTextarea/>
                     </b:panelGrid>
                     <b:commandButton value="Guardar" look="primary"/>
-                </h:form>
-            </b:well>
         </h:form>
     </ui:define>
 

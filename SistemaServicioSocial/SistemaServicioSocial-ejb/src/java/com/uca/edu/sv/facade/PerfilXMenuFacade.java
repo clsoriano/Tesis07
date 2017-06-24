@@ -5,7 +5,7 @@
  */
 package com.uca.edu.sv.facade;
 
-import com.uca.edu.sv.ss.Opcion;
+import com.uca.edu.sv.ss.SsPerfilXMenu;
 import java.io.Serializable;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -16,9 +16,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @LocalBean
-public class OpcionFacade extends AbstractFacade<Opcion> implements Serializable {
+public class PerfilXMenuFacade extends AbstractFacade<SsPerfilXMenu> implements Serializable {
 
-    public OpcionFacade() {
-        super(Opcion.class);
+    public PerfilXMenuFacade() {
+        super(SsPerfilXMenu.class);
     }
 }

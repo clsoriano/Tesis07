@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Prototipo</title>
+        <title>Sistema de servicio social</title>
     </h:head>
 
     <h:body>
@@ -18,7 +18,7 @@
         <div id="top" class="top">
             <ui:insert name="top">
                 <b:navBar brand="Servicio Social" brandHref="#" inverse="true">
-                    <b:navbarLinks pull="right">
+                    <b:navbarLinks pull="right" rendered="false">
                         <b:dropMenu value="" iconAwesome="fa-envelope">
                             <b:navLink value="Solicitudes" href="#" icon="glyphicon glyphicon-exclamation-sign"></b:navLink>
                         </b:dropMenu>
@@ -38,17 +38,16 @@
                             <b:column col-sm="3" col-md="2" styleClass="sidebar" style="background-color: #292b2c;">
                                 <b:listLinks>
                                     <b:navLink header="Menu" />
-                                    <ui:repeat var="menuOp" value="#{principal.ssMenu}">
-                                        <b:navLink value="#{menuOp.descripcion}" 
-                                                   iconAwesome="#{menuOp.icon}" 
-                                                   href="#{menuOp.url}" rendered="#{menuOp.subMenu==null}"
-                                                   onclick="#{menuOp.funcion}"/>
-                                        <b:accordion rendered="#{menuOp.subMenu!=null}">
-                                            <b:panel title="#{menuOp.descripcion}">
+                                    <ui:repeat var="mOp" value="#{principal.menu}">
+                                        <b:navLink value="#{mOp.menu.descripcion}" 
+                                                   href="#{mOp.menu.url!=null ? principal.path.concat(mOp.menu.url) : null}" rendered="#{mOp.subMenu.size()==0}"
+                                                   onclick="#{mOp.menu.funcion}"/>
+                                        <b:accordion rendered="#{mOp.subMenu.size()>0}">
+                                            <b:panel title="#{mOp.menu.descripcion}">
                                                 <b:listLinks>
-                                                    <ui:repeat value="#{menuOp.subMenu}" var="subMenu">
-                                                        <b:navLink value="#{subMenu.descripcion}" iconAwesome="#{subMenu.icon}" 
-                                                                   href="#{subMenu.url}" onclick="#{subMenu.funcion}"/>                                                        
+                                                    <ui:repeat value="#{mOp.subMenu}" var="smOp">
+                                                        <b:navLink value="#{smOp.descripcion}"
+                                                                   href="#{smOp.url!=null ? principal.path.concat(smOp.url) : null}" onclick="#{smOp.funcion}"/>                                                        
                                                     </ui:repeat>
                                                 </b:listLinks>
                                             </b:panel>
@@ -57,7 +56,6 @@
                                 </b:listLinks>
                             </b:column>                            
                         </b:row>
-                        <!--Acerca de-->
                         <b:modal id="acercaDe" title="Acerca de" styleClass="modalArcecade"
                                  closable="false" close-on-escape="false" backdrop="false">
                             <h1>SOCIALNET</h1>
@@ -70,16 +68,13 @@
                                 <b:button value="Ok" look="success" dismiss="modal" onclick="return false;"/>
                             </f:facet>
                         </b:modal>
-                        <!--Acerca de-->
-                        <!--Cerrar sesion-->
                         <b:modal id="amodal" title="Cerrar Sesion" styleClass="modalPseudoClass"
                                  closable="false" close-on-escape="false" backdrop="false">
-                            <p>Esta seguro de abandonar el sistema?</p>
-                            <f:facet name="footer">
+                            <h:form>
+                                <p>Esta seguro de abandonar el sistema?</p>
                                 <b:button value="Cancelar" dismiss="modal" onclick="return false;"/>
-                                <b:button value="Ok" look="danger" dismiss="modal" 
-                                          onclick="window.location.href = '/SistemaServicioSocial-war/faces/login.xhtml';return false;"/>
-                            </f:facet>
+                                <b:commandButton value="Ok" look="danger" action="#{manageLogin.logout()}"/>
+                            </h:form>
                         </b:modal>
                         <b:modal id="logueado" title="Usuario Logueado" styleClass="modalUserLog"
                                  closable="false" close-on-escape="false" backdrop="false">

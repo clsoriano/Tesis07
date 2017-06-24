@@ -8,11 +8,11 @@
             <web-module-libraries/>
             <web-module-additional-libraries>
                 <library>
-                    <file>${reference.SistemaServicioSocial-war.dist-ear}</file>
+                    <file>${reference.SistemaServicioSocial-ejb.dist}</file>
                     <path-in-war>/</path-in-war>
                 </library>
                 <library>
-                    <file>${reference.SistemaServicioSocial-ejb.dist}</file>
+                    <file>${reference.SistemaServicioSocial-war.dist-ear}</file>
                     <path-in-war>/</path-in-war>
                 </library>
             </web-module-additional-libraries>

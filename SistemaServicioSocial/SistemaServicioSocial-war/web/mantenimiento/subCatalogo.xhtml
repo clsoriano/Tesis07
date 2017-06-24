@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui">
+
+    <h:form id="lfDetaCatalogo">
+        <p:panel id="pDataCatalogo">
+            <h:panelGrid columns="1" cellpadding="5" style="margin-bottom:10px">
+                
+                <b:inputText id="detaValor" value="#{catalogoBean.ssSubCatalogo.valor}" required="true">
+                    <f:facet name="prepend">
+                        <p:outputLabel value="Valor:"/>
+                    </f:facet>
+                </b:inputText>
+                <b:inputText id="detaDescripcion" value="#{catalogoBean.ssSubCatalogo.descripcion}" required="true">
+                    <f:facet name="prepend">
+                        <p:outputLabel value="Descripcion:"/>
+                    </f:facet>
+                </b:inputText>
+                <b:selectOneMenu value="#{catalogoBean.ssSubCatalogo.estado}" required="true" 
+                                 requiredMessage="Seleccionar estado">
+                    <f:facet name="prepend">
+                        <p:outputLabel value="Estado:"/>
+                    </f:facet>
+                    <f:facet name="append">
+                        <b:iconAwesome name="list"/>
+                    </f:facet>
+                    <f:selectItem itemLabel="Activo" itemValue="A"/>
+                    <f:selectItem itemLabel="Inactivo" itemValue="I"/>
+                </b:selectOneMenu>
+            </h:panelGrid>   
+            <f:facet name="footer">
+                <b:commandButton value="Cancelar" 
+                                 onclick="PF('modalAddEditSubCatalogo').hide();return false;"
+                                 iconAwesome="fa-close"/>
+                <b:commandButton value="Guardar" 
+                                 iconAwesome="fa-save" 
+                                 action="#{catalogoBean.saveSubCatalogo()}"
+                                 update="@this growlGlobalError"/>                            
+            </f:facet>
+        </p:panel>
+    </h:form>  
+
+</ui:composition>

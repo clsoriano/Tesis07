@@ -5,20 +5,18 @@
  */
 package com.uca.edu.sv.managedBean;
 
+import com.uca.edu.sv.controller.Controller;
 import com.uca.edu.sv.dashboard.Birth;
 import java.util.List;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.faces.bean.RequestScoped;
-import javax.inject.Named;
 
 /**
  *
  * @author jcsoriano
  */
-@Named
-@RequestScoped
+@Controller
 public class LineChartBean implements Serializable {
 
     protected List<Birth> boys;

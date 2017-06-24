@@ -39,12 +39,11 @@ public class AbstractTemplate<T> implements Serializable {
     }
 
     public void remove(T entity) {
-        getEntityManager().remove(this);
+        getEntityManager().remove(entity);
     }
 
     public T createQueryNombra(String nombreQuery, HashMap<?, Object> parametros, Class<?> clase) {
         TypedQuery query = getEntityManager().createNamedQuery(nombreQuery, clase);
-        query.setParameter(nombreQuery, clase);
         return (T) setParametros(query, parametros).getSingleResult();
 
     }

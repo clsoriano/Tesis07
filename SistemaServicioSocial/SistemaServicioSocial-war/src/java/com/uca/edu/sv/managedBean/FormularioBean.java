@@ -5,27 +5,25 @@
  */
 package com.uca.edu.sv.managedBean;
 
+import com.uca.edu.sv.controller.Controller;
 import com.uca.edu.sv.facade.SsCampoFormularioFacade;
 import com.uca.edu.sv.facade.SsFormularioFacade;
 import com.uca.edu.sv.ss.SsCampoFormulario;
 import com.uca.edu.sv.ss.SsFormulario;
 import java.io.Serializable;
 import java.util.List;
-import javax.ejb.EJB;
-import javax.faces.bean.RequestScoped;
-import javax.inject.Named;
+import javax.inject.Inject;
 
 /**
  *
  * @author jcsoriano
  */
-@Named
-@RequestScoped
+@Controller
 public class FormularioBean implements Serializable {
 
-    @EJB
+    @Inject
     private SsFormularioFacade ssFormularioFacade;
-    @EJB
+    @Inject
     private SsCampoFormularioFacade ssCampoFormularioFacade;
     private SsFormulario ssFormulario;
     private SsCampoFormulario ssCampoFormulario;

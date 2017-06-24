@@ -5,17 +5,14 @@
  */
 package com.uca.edu.sv.managedBean;
 
+import com.uca.edu.sv.controller.Controller;
 import java.io.Serializable;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Named;
 
 /**
  *
  * @author jcsoriano
  */
-@Named
-@ViewScoped
+@Controller
 public class SolicitudBean implements Serializable {
     
 }

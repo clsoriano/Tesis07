@@ -5,30 +5,28 @@
  */
 package com.uca.edu.sv.managedBean;
 
+import com.uca.edu.sv.controller.Controller;
 import java.io.Serializable;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Named;
 
 /**
  *
  * @author jcsoriano
  */
-@Named
-@ViewScoped
+@Controller
 public class ConsultaLineaDeAprobacion implements Serializable {
 
-    public ConsultaLineaDeAprobacion(){
-        
+    public ConsultaLineaDeAprobacion() {
+
     }
-    
+
     public String crearLineaDeAprobacion() {
         return "nuevaLineaDeAprobacion?faces-redirect=true";
     }
-    
+
     public String cancelarLineaDeAprobacion() {
         return "lineaDeAprobacion?faces-redirect=true";
     }
-    
+
     public String rechazarLineaDeAprobacion() {
         return "lineaDeAprobacion?faces-redirect=true";
     }

@@ -18,5 +18,9 @@ public abstract class AbstractFacade<T> extends AbstractTemplate<T> implements S
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
+
+    public Class<T> getEntityClass() {
+        return entityClass;
+    }
     
 }

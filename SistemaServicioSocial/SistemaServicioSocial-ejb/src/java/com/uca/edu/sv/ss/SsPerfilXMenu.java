@@ -16,13 +16,13 @@ import javax.persistence.Table;
  * @author jcsoriano
  */
 @Entity
-@Table(name = "PERFIL_X_OPCION")
-public class PerfilXOpcion implements Serializable {
+@Table(name = "SS_PERFIL_X_MENU", schema = "SS")
+public class SsPerfilXMenu implements Serializable {
 
     @Id
     @Column(name = "COD_PERFIL")
     private String codPerfil;
-    @Column(name = "COD_OPCION")
+    @Column(name = "COD_MENU")
     private String codOpcion;
     @Column(name = "ESTADO")
     private String estado;

@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <ui:define name="content">
+        <h:form id="catalogos">
+            <h3 class="glyphicon glyphicon-list">
+                <p:outputLabel value="Catalogos"/>
+            </h3>
+            <p:panel header="Catalogo" toggleable="true" id="pCat">
+                <b:dataTable
+                    id="pDataCatalogo"
+                    value="#{catalogoBean.listSsTipoCatalogo}"
+                    var="c"
+                    onselect="ajax:catalogoBean.setSelectedSsTipoCatalogo(c);"
+                    ondeselect="ajax:catalogoBean.setIsEditable(false);"
+                    selectionMode="single"
+                    select="true"
+                    update="catalogos:cMod catalogos:cElim catalogos:addEditCatalogoModal detCatalogos"> 
+                    <b:dataTableColumn  label="Codigo tipo catalogo">
+                        <p:outputLabel value="#{c.codTipo}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Nombre">
+                        <p:outputLabel value="#{c.valor}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Descripcion">
+                        <p:outputLabel value="#{c.descripcion}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Estado" >
+                        <p:outputLabel value="#{c.estado}"/>
+                    </b:dataTableColumn>
+                </b:dataTable>
+                <f:facet name="footer">
+                    <!-- Footer tipo catalogo -->
+                    <b:commandButton id="cAdd" 
+                                     value="Agregar" 
+                                     iconAwesome="fa-plus"     
+                                     action="#{catalogoBean.newTipoCatalogo()}"
+                                     update="addEditCatalogoModal catalogos:pCat:pDataCatalogo catalogos:cMod catalogos:cElim detCatalogos"
+                                     immediate="true"/>
+                    <b:commandButton id="cMod"
+                                     value="Modificar" 
+                                     iconAwesome="fa-pencil"
+                                     onclick="PF('modalAddEditCatalogo').show();return false;"
+                                     disabled="#{!catalogoBean.isEditable}"
+                                     immediate="true"/>
+                    <b:commandButton id="cElim"
+                                     value="Eliminar" 
+                                     iconAwesome="fa-trash" 
+                                     action="#{catalogoBean.deleteTipoCatalogo()}"
+                                     disabled="#{!catalogoBean.isEditable}"
+                                     immediate="true"/>
+                </f:facet>
+                <p:dialog id="addEditCatalogoModal" widgetVar="modalAddEditCatalogo">
+                    <ui:include src="tipoCatalogo.xhtml"/>
+                </p:dialog>
+            </p:panel>
+        </h:form>
+        <h:form id="detCatalogos">
+            <p:panel header="Detalle Catalogo" toggleable="true" id="pDetCatalogo">
+                <b:dataTable
+                    value="#{catalogoBean.lisSsSubCatalogo}"
+                    var="d"
+                    selectionMode="single"
+                    onselect="ajax:catalogoBean.setSelectedSsSubCatalogo(d);"
+                    ondeselect="ajax:catalogoBean.setIsEditSubCatalogo(false);">
+                    <b:dataTableColumn label="Codigo Sub Catalogo">
+                        <p:outputLabel value="#{d.codSubCatalogo}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Descripcion">
+                        <p:outputLabel value="#{d.descripcion}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Valor">
+                        <p:outputLabel value="#{d.valor}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Estado">
+                        <p:outputLabel value="#{d.estado}"/>
+                    </b:dataTableColumn>
+                </b:dataTable>
+                <f:facet name="footer">
+                    <!-- Footer sub catalogo -->
+                    <b:commandButton id="dAgregar"
+                                     value="Agregar" 
+                                     disabled="#{!catalogoBean.isEditable}"
+                                     iconAwesome="fa-plus"
+                                     action="#{catalogoBean.newSubCatalogo()}"
+                                     update="addEditSubCatalogo"
+                                     immediate="true"
+                                     />
+                    <b:commandButton id="dMod"
+                                     value="Modificar" 
+                                     iconAwesome="fa-pencil"
+                                     disabled="#{!catalogoBean.isEditSubCatalogo}"
+                                     onclick="PF('modalAddEditSubCatalogo').show(); return false;"/>
+                    <b:commandButton id="dElim"
+                                     value="Eliminar" 
+                                     iconAwesome="fa-trash"
+                                     disabled="#{!catalogoBean.isEditSubCatalogo}"/>
+                </f:facet>
+                <p:dialog id="addEditSubCatalogo" widgetVar="modalAddEditSubCatalogo" modal="true">
+                    <ui:include src="subCatalogo.xhtml"/>
+                </p:dialog>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

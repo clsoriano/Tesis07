@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+        http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd" version="2.1">
+    <persistence-unit-defaults>
+        <schema>SS</schema>
+    </persistence-unit-defaults>    
+    <named-query name="SsMenu.findByUsuario">
+        <query>
+            <![CDATA[
+                SELECT o FROM SsMenu o WHERE o.codMenuPadre = 0 OR o.codMenuPadre IS NULL ORDER BY o.orden ASC
+            ]]>
+        </query>
+    </named-query>
+    <named-query name="SsMenu.findAll">
+        <query>
+            <![CDATA[
+                SELECT o FROM SsMenu o ORDER BY o.codMenu ASC
+            ]]>
+        </query>
+    </named-query>
+    <named-query name="SsMenu.findByCodMenu">
+        <query>
+            <![CDATA[
+                SELECT o FROM SsMenu o WHERE o.codMenu = :codMenu
+            ]]>
+        </query>
+    </named-query>
+    <named-query name="SsMenu.findByCodMenuPadre">
+        <query>
+            <![CDATA[
+                SELECT o FROM SsMenu o WHERE o.codMenuPadre = :codMenuPadre
+            ]]>
+        </query>
+    </named-query>
+    <named-query name="SsMenu.findMenuPadre">
+        <query>
+            <![CDATA[
+                SELECT o FROM SsMenu o WHERE o.codMenuPadre = 0 OR o.codMenuPadre IS NULL ORDER BY o.orden ASC
+            ]]>
+        </query>
+    </named-query>  
+    <named-query name="Usuario.findAll">
+        <query>
+            <![CDATA[
+                SELECT o FROM Usuario o ORDER BY o.codUsuario ASC
+            ]]>
+        </query>
+    </named-query>  
+</entity-mappings>
+

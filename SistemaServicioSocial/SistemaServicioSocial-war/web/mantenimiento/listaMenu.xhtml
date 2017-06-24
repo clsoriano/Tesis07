@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form id="ltpl">
+            <h1><b:iconAwesome name="fa-list"/>Lista Menu</h1>
+            <p><b:commandButton value="Nuevo" look="primary" icon="glyphicon glyphicon-plus" 
+                                action="#{menuBean.nuevoMenu()}"/></p>
+            <b:form id="ltMenu">
+                <p:panel header="Lista Menu" toggleable="true" id="pListaMenu">
+                    <b:dataTable value="#{menuBean.listMenu}" 
+                                 var="m"
+                                 onselect="ajax:menuBean.setSsMenu(m);"
+                                 ondeselect="ajax:menuBean.setEditable(false);"
+                                 select="true"
+                                 selectionMode="single" 
+                                 update="growlGlobalError ltpl:ltMenu:modMenu ltpl:ltMenu:elMenu">
+                        <b:dataTableColumn label="Codigo Menu">
+                            <h:outputText value="#{m.codMenu}"/>
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="Menu Padre">
+                            <h:outputText value="#{menuBean.getNamePadre(m.codMenuPadre)}"/>
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="Descripcion">
+                            <h:outputText value="#{m.descripcion}"/>
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="Url">
+                            <h:outputText value="#{m.url}"/>
+                        </b:dataTableColumn>                        
+                        <b:dataTableColumn label="Orden">
+                            <h:outputText value="#{m.orden}"/>
+                        </b:dataTableColumn>
+                    </b:dataTable>
+                    <f:facet name="footer">                        
+                        <b:commandButton id="modMenu" value="Modificar" iconAwesome="fa-pencil" disabled="#{!menuBean.editable}" action="#{menuBean.redirectEditMenu()}"/>
+                        <b:commandButton id="elMenu" value="Eliminar" iconAwesome="fa-trash" disabled="#{!menuBean.editable}" action="#{menuBean.deleteMenu}"/>
+                    </f:facet>
+                </p:panel>
+            </b:form>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

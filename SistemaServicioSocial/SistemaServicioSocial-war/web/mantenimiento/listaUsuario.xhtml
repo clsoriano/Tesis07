@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml">   
+
+    <ui:define name="content">
+        <h:form id="ltul">
+            <h1>Usuarios</h1>
+            <p><b:commandButton value="Nuevo" look="primary" icon="glyphicon glyphicon-plus" action="#{usuarioBean.newUsuario()}"/></p>
+            <b:form id="ltusuL">
+                <p:panel id="usuarioList">
+                    <b:dataTable value="#{usuarioBean.listUsuario}" 
+                                 var="u" 
+                                 id="usuarios"
+                                 onselect="ajax:usuarioBean.setUsuario(u);"
+                                 ondeselect="ajax:usuarioBean.setEditable(false);"
+                                 select="true"
+                                 selectionMode="single" 
+                                 update="growlGlobalError ltul:ltusuL:modUsu ltul:ltusuL:elUsu">
+                        <b:dataTableColumn label="Codigo Usuario">
+                            <h:outputText value="#{u.codUsuario}"/>
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="Nombre">
+                            <h:outputText value="#{u.nbrUsuario}"/>
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="Estado">
+                            <h:outputText value="#{u.estado}"/>
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="Fecha expiracion">
+                            <h:outputText value="#{u.fechaExpiracion}"/>
+                        </b:dataTableColumn>                    
+                    </b:dataTable>
+                    <f:facet name="footer">
+                        <b:commandButton id="modUsu" value="Modificar" iconAwesome="fa-pencil" disabled="#{!usuarioBean.editable}" action="#{usuarioBean.editUsuario()}"/>
+                        <b:commandButton id="elUsu" value="Eliminar" iconAwesome="fa-trash" update="usuarios" action="#{usuarioBean.remove()}" disabled="#{!usuarioBean.editable}"/>
+                    </f:facet>
+                </p:panel>
+            </b:form>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

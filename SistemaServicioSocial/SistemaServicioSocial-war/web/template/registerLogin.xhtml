@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Login</title>     
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <h:outputStylesheet name="css/default.css"/>
+    </h:head>
+
+    <h:body style="background-color: #292b2c;">
+        <div id="top2" class="top2">
+            <ui:insert name="top2">
+                <h:form>
+                    <b:navBar brand="Servicio Social" brandHref="#" inverse="true">
+                        <b:navbarLinks pull="right">
+                            <b:navLink>
+                                <b:selectOneMenu tooltip="Tipo de institucion a registrar">
+                                    <f:selectItem itemLabel="- Tipo Institucion -"/>
+                                </b:selectOneMenu>
+                            </b:navLink>
+                            <b:navLink>
+                                <b:inputText placeholder="Institucion" tooltip="Nombre de la institucion">
+                                    <f:facet name="prepend">
+                                        <b:iconAwesome name="fa-university"/>
+                                    </f:facet>
+                                </b:inputText>
+                            </b:navLink>
+                            <b:navLink>
+                                <b:commandButton value="Registrate" tooltip="Registrate si aun no posees usuario" iconAwesome="fa-share-square-o" look="success" action="#{manageLogin.registrate()}"/>
+                            </b:navLink>
+                        </b:navbarLinks>
+                    </b:navBar>
+                </h:form>
+            </ui:insert>
+        </div>
+        <div id="left2">
+            <ui:insert name="left2"> 
+                <h:form>
+                    <b:carousel id="tiovivo" interval="2500">
+                        <b:carouselItem >
+                            <img src="resources/img/img1.jpeg" alt="Valladolid" style="width: 800px; height: 600px" />
+                            <b:carouselCaption>
+                                <h3>Servicio Social Externo!</h3>
+                                <p>The band reads <a style="color:#000000;" href="">"Non plus ultra"</a>, being Spains' motto in 1492, when Columbus made his discoveries.</p>
+                            </b:carouselCaption>
+                        </b:carouselItem> 
+                        <b:carouselItem >
+                            <img src="resources/img/img2.jpeg" alt="Valladolid" style="width: 800px; height: 600px" />
+                            <b:carouselCaption>
+                                <h3>Apoyo estudiantil!</h3>
+                                <p>The band reads <a style="color:#000000;" href="">"Non plus ultra"</a>, being Spains' motto in 1492, when Columbus made his discoveries.</p>
+                            </b:carouselCaption>
+                        </b:carouselItem>
+                        <b:carouselItem >
+                            <img src="resources/img/img3.jpeg" alt="Valladolid" style="width: 800px; height: 600px" />
+                            <b:carouselCaption>
+                                <h3>TecolUca!</h3>
+                                <p>The band reads <a style="color:#000000;" href="">"Non plus ultra"</a>, being Spains' motto in 1492, when Columbus made his discoveries.</p>
+                            </b:carouselCaption>
+                        </b:carouselItem>
+                    </b:carousel>
+                </h:form>
+            </ui:insert>
+        </div>
+        <div id="content2">
+            <ui:insert name="content2"></ui:insert>
+        </div>
+    </h:body>
+
+</html>

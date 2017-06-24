@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * @author jcsoriano
  */
 @Entity
-@Table(name = "EXPEDIENTE")
+@Table(name = "EXPEDIENTE", schema = "SS")
 public class Expediente implements Serializable {
 
     @Id

@@ -1,54 +1,37 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:b="http://bootsfaces.net/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <h:outputStylesheet name="css/default.css"/>
-        <h:outputStylesheet name="css/cssLayout.css"/>
-        <title>Login</title>
-        <style type="text/css">
-            .form-signin {
-                margin: 0 auto;
-                max-width: 330px;
-                padding: 15px;
-            }
-            #bottom{
-                bottom: 0px;
-            }
-        </style>
-    </h:head>
-    <h:body style="padding-top: 60px; background-color: #292b2c;">
-        <b:container>
-            <h:form styleClass="form-signin" prependId="false">
-                <h2 class="form-signin-heading" style="color:white;">Iniciar sesión</h2>
-                <b:inputText id="email" placeholder="Usuario/Email address" value="#{manageLogin.user}" required="true">
-                    <f:facet name="prepend">
-                        <b:icon name="user" />
-                    </f:facet>
-                </b:inputText>
-                <b:inputText id="password" placeholder="Contraseña" type="password" value="#{manageLogin.password}" required="true">
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="key" />
-                    </f:facet>
-                </b:inputText>
-                <!--b:selectBooleanCheckbox value="true" caption="Recordarme"/-->
-                <b:commandButton look="primary btn-block" value="Ingresar" icon="log-in" size="lg" 
-                                 action="#{manageLogin.validateUser()}" ajax="true" update="growlSpecific" process="@form @this"/>
-                <b:label text="Registrar solicitud de proyecto." />
-                <b:growl id="growlSpecific" placementFrom="bottom" show-detail="true"
-                         global-only="false"
-                         show-summary="true" 
-                         allow-dismiss="true"
-                         animation-enter="animated bounceInDown"
-                         animation-exit="animated flipOutX"
-                         escape="true"                         
-                         class="alert alert-danger"/>
-            </h:form>
-        </b:container>        
-    </h:body>
-</html>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template/registerLogin.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
 
+    <ui:define name="content2">
+        <h:form prependId="false">
+            <h2 style="color:white;">Iniciar sesión</h2>
+            <b:inputText id="email" placeholder="Usuario/Email address" value="#{manageLogin.user}" required="true">
+                <f:facet name="prepend">
+                    <b:iconAwesome name="user" />
+                </f:facet>
+            </b:inputText>
+            <b:inputText id="password" placeholder="Contraseña" type="password" value="#{manageLogin.password}" required="true">
+                <f:facet name="prepend">
+                    <b:iconAwesome name="key" />
+                </f:facet>
+            </b:inputText>
+            <!--b:selectBooleanCheckbox value="true" caption="Recordarme"/-->
+            <b:commandButton look="primary btn-block" value="Ingresar" iconAwesome="sign-in" size="lg" 
+                             action="#{manageLogin.validateUser()}" ajax="true" update="growlSpecific" process="@form @this"/>
+            <b:growl id="growlSpecific" placementFrom="bottom" show-detail="true"
+                     global-only="false"
+                     show-summary="true" 
+                     allow-dismiss="true"
+                     animation-enter="animated bounceInDown"
+                     animation-exit="animated flipOutX"
+                     escape="true"                         
+                     class="alert alert-danger"/>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="menu">
+            <h1>Menu</h1>
+            <b:well><b:iconAwesome name="fa-list"/>Nuevo</b:well>
+            <b:well>
+                <b:panelGrid columns="1">
+                    <b:inputText id="mNombreOpcion" placeholder="Descripcion" required="true" value="#{menuBean.ssMenu.descripcion}">
+                        <f:facet name="prepend">
+                            <p:outputLabel value="Descripcion"/>
+                        </f:facet>
+                    </b:inputText>
+                    <b:inputText id="mUrl" placeholder="URL" value="#{menuBean.ssMenu.url}">
+                        <f:facet name="prepend">
+                            <p:outputLabel value="URL"/>
+                        </f:facet>
+                    </b:inputText>
+                    <b:inputText id="mFuncion" placeholder="Funcion Para Ventanas Emergentes" value="#{menuBean.ssMenu.funcion}">
+                        <f:facet name="prepend">
+                            <p:outputLabel value="Funcion"/>
+                        </f:facet>
+                    </b:inputText>
+                    <b:inputText id="mOrden" placeholder="Orden" required="true" value="#{menuBean.ssMenu.orden}">
+                        <f:facet name="prepend">
+                            <p:outputLabel value="Orden"/>
+                        </f:facet>
+                    </b:inputText>                    
+                    <b:selectOneMenu value="#{menuBean.ssMenu.codMenuPadre}" id="mMPadre">   
+                        <f:facet name="prepend">
+                            <p:outputLabel value="Menu Padre"/>
+                        </f:facet>
+                        <f:selectItem itemLabel="- Seleccionar -" itemValue=""/>
+                        <f:selectItems value="#{menuBean.listMenuPadre}" var="m" itemValue="#{m.codMenu}" itemLabel="#{m.descripcion}"/>
+                    </b:selectOneMenu>
+                </b:panelGrid>            
+                <b:commandButton value="Guardar" look="success" icon="glyphicon glyphicon-save" action="#{menuBean.saveMenu()}"/>&nbsp;
+                <b:commandButton value="Cancelar" look="danger" icon="glyphicon glyphicon-th-list" action="#{menuBean.cancel()}" immediate="true"/>
+            </b:well>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

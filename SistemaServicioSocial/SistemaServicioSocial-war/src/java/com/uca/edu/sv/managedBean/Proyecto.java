@@ -5,19 +5,16 @@
  */
 package com.uca.edu.sv.managedBean;
 
+import com.uca.edu.sv.controller.Controller;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ManagedBean;
-import javax.inject.Named;
 
 /**
  *
  * @author jcsoriano
  */
-@Named
-@RequestScoped
+@Controller
 public class Proyecto implements Serializable{
     
     private String institucion;

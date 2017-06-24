@@ -5,18 +5,16 @@
  */
 package com.uca.edu.sv.login;
 
+import com.uca.edu.sv.controller.Controller;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
  *
  * @author jcsoriano
  */
-@ManagedBean(name = "manageLogin")
-@ViewScoped
+@Controller
 public class ManageLogin implements Serializable {
 
     private String user;
@@ -53,6 +51,7 @@ public class ManageLogin implements Serializable {
     public String validateUser() {
         if ((getUser().equals("admin") || getUser().equals("clsoriano") || getUser().equals("inst1234")) && getPassword().equals("1234")) {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", getUser());
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(getUser(), getUser());
             if (getUser().equals("admin")) {
                 return "index?faces-redirect=true";
             } else {
@@ -64,6 +63,15 @@ public class ManageLogin implements Serializable {
             context.addMessage(null, facesMessage);
         }
         return null;
+    }
+
+    public String logout() throws Exception {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
+        return "/login?faces-redirect=true";
+    }
+
+    public String registrate() throws Exception {
+        return "/registro/registrarInstitucion?faces-redirect=true";
     }
 
 }
