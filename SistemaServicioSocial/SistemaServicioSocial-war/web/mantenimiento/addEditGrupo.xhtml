@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui">
+
+    <h:form id="fAddEditGrupo">
+        <p:panel>
+            <h:panelGrid columns="2" cellpadding="5" cellspacing="5">
+                <p:outputLabel value="Codigo Grupo Institucion:"/>
+                <p:inputText id="gCodigoGrupo"
+                             label="Codigo grupo"
+                             placeholder="Codigo Grupo"
+                             required="true"
+                             disabled="true"
+                             value="#{grupoTipoInstitucionController.grupoInstitucion.codGrupoInstitucion}"/>
+                <p:outputLabel value="Nombre Grupo Institucion:"/>
+                <p:inputText id="gNombreGrupo"
+                             label="Nombre grupo"
+                             placeholder="Nombre Grupo"
+                             required="true"
+                             value="#{grupoTipoInstitucionController.grupoInstitucion.nbrGrupoInstitucion}"/>
+            </h:panelGrid>
+            <f:facet name="footer">
+                <b:commandButton id="gGuardar"
+                                 value="Guardar" 
+                                 look="success"
+                                 iconAwesome="fa-save" 
+                                 action="#{grupoTipoInstitucionController.saveGrupoInstitucion()}"
+                                 onsuccess="PF('modalAddEditGrupo').hide();return false;"
+                                 update="growlGlobalError fGrupo"/>
+                <b:commandButton id="gCancelar"
+                                 value="Cancelar" 
+                                 look="danger"
+                                 iconAwesome="fa-close" 
+                                 immediate="true"
+                                 onclick="PF('modalAddEditGrupo').hide();return false;"/>
+            </f:facet>
+        </p:panel>
+    </h:form>
+
+</ui:composition>

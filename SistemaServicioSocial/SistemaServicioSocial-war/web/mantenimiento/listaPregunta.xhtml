@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h1>Alumnos</h1>
+        <h:form id="fAlumno">
+            <p:commandButton value="Ver Alumno" 
+                             icon="fa fa-eye" 
+                             action="#{usuarioBean.newUsuario()}"
+                             onsuccess="PF('modalAddEditUsuario').show();return false;"
+                             update=""
+                             immediate="true"/>
+            <p:separator/>
+            <p:panel id="pUsuario" header="Usuario" toggleable="true">
+                <p:dataTable value="#{alumnoController.alumnoList}"
+                             var="a" 
+                             id="dAlumno"
+                             >
+                    <b:dataTableColumn label="Carnet">
+                        <h:outputText value="#{a.carne}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Nombres">
+                        <h:outputText value="#{a.nombres}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Apellidos">
+                        <h:outputText value="#{a.apellidos}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Carrera">
+                        <h:outputText value="#{a.codCarrera.nbrCarrera}"/>
+                    </b:dataTableColumn>
+                </p:dataTable>
+                <f:facet name="footer">
+                    <!--                    <b:commandButton id="aVerAlumno" 
+                                                         value="Ver Alumno" 
+                                                         iconAwesome="fa-edit" 
+                                                         disabled="# {!usuarioBean.isEditUsuario}" 
+                                                         onclick="PF('modalAddEditAlumno').show();return false;"
+                                                         update="fAddEditAlumno"
+                                                         immediate="true"/>-->
+                    <!--                    <b:commandButton id="aElim" value="Eliminar" 
+                                                         iconAwesome="fa-trash" 
+                                                         action="# {usuarioBean.removeUsuario()}" 
+                                                         disabled="# {!usuarioBean.isEditUsuario}"
+                                                         update="growlGlobalError fUsuario"
+                                                         immediate="true"/>-->
+                </f:facet>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

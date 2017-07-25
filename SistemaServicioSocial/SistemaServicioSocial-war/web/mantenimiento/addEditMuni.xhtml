@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="fAddEditMuni">
+        <p:panel>
+            <h:panelGrid columns="2" cellpadding="5" cellspacing="5">
+                <p:outputLabel value="Codigo Municipio:"/>
+                <b:inputText id="pCodMuni"
+                             label="Codigo Municipio"
+                             renderLabel="false"
+                             placeholder="Codigo Municipio"
+                             required="true"
+                             value="#{deptoMuniController.municipio.municipioPK.codMunicipio}" 
+                             disabled="#{deptoMuniController.isEditMuni}"/>
+                <p:outputLabel value="Nombre Municipio:"/>
+                <b:inputText id="pNomMuni"
+                             placeholder="Nombre Municipio"
+                             value="#{deptoMuniController.municipio.nbrMunicipio}"/>
+            </h:panelGrid>
+            <f:facet name="footer">
+                <b:commandButton id="mGuardar"
+                                 value="Guardar" 
+                                 iconAwesome="fa-save" 
+                                 action="#{deptoMuniController.saveMunicipio()}"
+                                 oncomplete="PF('modalAddEditMuni').hide();return false;"
+                                 update="growlGlobalError fPanelPais:fMuni"/>
+                <b:commandButton id="mCancelar"
+                                 value="Cancelar" 
+                                 iconAwesome="fa-close" 
+                                 immediate="true"
+                                 onclick="PF('modalAddEditMuni').hide();return false;"/>
+            </f:facet>
+        </p:panel>
+    </h:form>
+</ui:composition>

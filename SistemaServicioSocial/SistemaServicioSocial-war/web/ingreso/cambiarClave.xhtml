@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns="http://www.w3.org/1999/xhtml">
+    <ui:define name="left">
+
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="fcClave" style="max-width: 800px;">
+            <h2>Cambio de Clave</h2>
+            <p:separator/>
+            <p:panel id="fpClave">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:outputLabel value="Nueva Contraseña:"/>
+                    <p:password value="#{manageLogin.passwordNew}" 
+                                required="true"
+                                placeholder="Ingrese Nueva Contraseña."
+                                label="Nueva Contraseña"/>
+                    <p:outputLabel value="Repita Nueva Contraseña:"/>
+                    <p:password value="#{manageLogin.passwordRepite}" 
+                                required="true"
+                                placeholder="Ingrese Nueva Contraseña."
+                                label="Contraseña"/>
+                </h:panelGrid>
+                <f:facet name="footer">
+                    <b:commandButton value="Cambiar"
+                                     look="success"
+                                     iconAwesome="fa-expeditedssl"
+                                     ajax="true"
+                                     action="#{manageLogin.cambioClave()}"
+                                     update="@form growlGlobalError"/>
+                </f:facet>
+            </p:panel>
+        </h:form>
+        <p:dialog widgetVar="modalCambioClave"
+                  header="Registro de institucion"
+                  position="center center" 
+                  onShow="PF('modalCambioClave').initPosition()"
+                  style="position:absolute; top: 10px;"
+                  modal="true"
+                  closable="false">
+            <h:form>
+                <b:well>
+                    <p:panel>
+                        <h:panelGrid columns="1" cellpadding="5">
+                            <p:outputLabel value="Se modifico correctamente la contraseña."/>
+                            <p:outputLabel value="Se redireccionara a pagina de incio de sesion."/>
+                        </h:panelGrid>
+                        <f:facet name="footer">
+                            <b:commandButton value="Ok" look="success" action="#{manageLogin.logout()}"/>
+                        </f:facet>
+                    </p:panel>
+                </b:well>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>

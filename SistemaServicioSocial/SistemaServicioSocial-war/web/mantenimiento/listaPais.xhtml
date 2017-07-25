@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns="http://www.w3.org/1999/xhtml">
+    <h:form id="fPais">        
+        <p:panel id="pPais" toggleable="true">
+            <b:commandButton value="Nuevo" 
+                             iconAwesome="fa-plus" 
+                             look="primary"
+                             action="#{paisController.newPais()}"
+                             onsuccess="PF('modalAddEditPais').show();return false;"
+                             update="fPanelPais:fAddEditPais fPanelPais:fPais:mMod fPanelPais:fPais:mElim fPanelPais:fPais:pdPais"
+                             immediate="true"
+                             />
+            <p:spacer width="80px"/>
+            <b:dataTable value="#{paisController.paisList}" 
+                         var="p"
+                         id="pdPais"
+                         onselect="ajax:paisController.setSelectedPais(p);"
+                         ondeselect="ajax:paisController.setIsEditPais(false);"
+                         select="true"
+                         selectionMode="single" 
+                         update="fPanelPais:fPais:mMod fPanelPais:fPais:mElim fPanelPais:fAddEditPais">
+                <b:dataTableColumn label="Codigo Pais">
+                    <h:outputText value="#{p.codPais}"/>
+                </b:dataTableColumn>
+                <b:dataTableColumn label="Nombre">
+                    <h:outputText value="#{p.nbrPais}"/>
+                </b:dataTableColumn>
+            </b:dataTable>
+            <f:facet name="footer">                     
+                <b:commandButton id="mMod" 
+                                 value="Modificar" 
+                                 iconAwesome="fa-pencil" 
+                                 disabled="#{!paisController.isEditPais}" 
+                                 onclick="PF('modalAddEditPais').show();return false;"
+                                 update="fPanelPais:fAddEditPais"/>
+                <b:commandButton id="mElim" 
+                                 value="Eliminar" 
+                                 iconAwesome="fa-trash" 
+                                 disabled="#{!paisController.isEditPais}" 
+                                 action="#{paisController.removePais()}"/>
+            </f:facet>
+        </p:panel>
+    </h:form>
+    <p:dialog id="addEditPais"
+              widgetVar="modalAddEditPais"
+              showEffect="fade" 
+              hideEffect="fade"
+              modal="true"
+              position="center center" 
+              onShow="PF('modalAddEditPais').initPosition()"
+              style="position:absolute; top: 10px;"
+              header="#{paisController.isEditPais ? 'Modificacion':'Nuevo'} Pais">
+        <ui:include src="addEditPais.xhtml"/>
+    </p:dialog>
+</ui:composition>

@@ -5,45 +5,72 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="./../template/layoutTemplate.xhtml"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml">
 
     <ui:define name="content">
-        <h:form>
+        <h:form id="fProyecto">
             <h1>Proyectos</h1>
             <h4>Activos/Inactivos</h4>
-            <p><b:commandButton value="Nuevo" look="primary" icon="glyphicon glyphicon-plus" onclick="#"/></p>
-            <b:form>
-                <p:panel>
-                    <b:dataTable value="#{proyecto.listProyecto}" var="p">
-                        <b:dataTableColumn label="Institucion">
-                            <h:outputText value="#{p.institucion}"/>
-                        </b:dataTableColumn>
-                        <b:dataTableColumn label="Proyecto/Actividad">
-                            <h:outputText value="#{p.actividad}"/>
-                        </b:dataTableColumn>
-                        <b:dataTableColumn label="Perfil/alumno">
-                            <h:outputText value="#{p.perfil}"/>
-                        </b:dataTableColumn>
-                        <b:dataTableColumn label="Inicio">
-                            <h:outputText value="#{p.inicio}"/>
-                        </b:dataTableColumn>
-                        <b:dataTableColumn label="Horario dias">
-                            <h:outputText value="#{p.horario}"/>
-                        </b:dataTableColumn>
-                        <b:dataTableColumn label="Responsable">
-                            <h:outputText value="#{p.responsable}"/>
-                        </b:dataTableColumn>
-                        <b:dataTableColumn label="Estado">
-                            <h:outputText value="#{p.estado=='A' ? 'Activo' : 'Inactivo'}"/>
-                        </b:dataTableColumn>
-                    </b:dataTable>
-                    <f:facet name="footer">                        
-                        <b:commandButton id="modMenu" value="Modificar" iconAwesome="fa-pencil" disabled="#{!menuBean.editable}" action="#{menuBean.redirectEditMenu()}"/>
-                        <b:commandButton id="elMenu" value="Eliminar" iconAwesome="fa-trash" disabled="#{!menuBean.editable}" action="#{menuBean.deleteMenu}"/>
-                    </f:facet>
-                </p:panel>
-            </b:form>
+            <b:commandButton value="Nuevo" 
+                             look="primary" 
+                             iconAwesome="fa-plus" 
+                             action="#{proyectoController.newProyecto()}"
+                             update="fAddEditProyecto fProyecto:pMod fProyecto:pElim fProyecto:pdProyecto"
+                             immediate="true"/>
+            <p:separator/>
+            <p:panel>
+                <b:dataTable value="#{proyectoController.proyectoList}"
+                             var="p"
+                             id="pdProyecto"
+                             onselect="ajax:proyectoController.setSelectedProyecto(m);"
+                             ondeselect="ajax:proyectoController.setIsEditProyecto(false);"
+                             select="true"
+                             selectionMode="single" 
+                             update="fProyecto:pMod fProyecto:pElim fAddEditProyecto">
+                    <b:dataTableColumn label="Institucion">
+                        <h:outputText value="#{p.institucion.nbrInstitucion}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Proyecto/Actividad">
+                        <h:outputText value="#{p.descripcion}"/>
+                    </b:dataTableColumn>
+<!--                    <b:dataTableColumn label="Perfil/alumno">
+                        <h:outputText value="# {p.perfil}"/>
+                    </b:dataTableColumn>-->
+                    <!--                        <b:dataTableColumn label="Inicio">
+                                                <h:outputText value="# {p.fechaInicio}"/>
+                                            </b:dataTableColumn>
+                                            <b:dataTableColumn label="Horario dias">
+                                                <h:outputText value="# {p.horasAsignadas}"/>
+                                            </b:dataTableColumn>-->
+                    <b:dataTableColumn label="Responsable">
+                        <h:outputText value="#{p.nbrResponsable}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Estado">
+                        <h:outputText value="#{p.estado=='A' ? 'Activo' : 'Inactivo'}"/>
+                    </b:dataTableColumn>
+                </b:dataTable>
+                <f:facet name="footer">                        
+                    <b:commandButton id="pMod"
+                                     value="Modificar" 
+                                     iconAwesome="fa-pencil" />
+                    <b:commandButton id="pElim" 
+                                     value="Eliminar" 
+                                     iconAwesome="fa-trash" />
+                </f:facet>
+            </p:panel>
         </h:form>
+        <p:dialog id="addEditProyecto"
+                  widgetVar="modalAddEditProyecto"
+                  showEffect="fade" 
+                  hideEffect="fade"
+                  modal="true"
+                  position="center center" 
+                  onShow="PF('modalAddEditProyecto').initPosition()"
+                  style="position:absolute; top: 10px;"
+                  header="#{menuBean.isEditMenu ? 'Modificacion':'Nuevo'} Proyecto">
+            <ui:include src="addEditProyecto.xhtml"/>
+        </p:dialog>
     </ui:define>
 
 </ui:composition>

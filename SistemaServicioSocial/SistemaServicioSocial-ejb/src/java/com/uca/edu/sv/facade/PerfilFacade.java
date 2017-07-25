@@ -5,8 +5,10 @@
  */
 package com.uca.edu.sv.facade;
 
-import com.uca.edu.sv.ss.Perfil;
+import com.uca.edu.sv.bd.Perfil;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
@@ -20,5 +22,15 @@ public class PerfilFacade extends AbstractFacade<Perfil> implements Serializable
 
     public PerfilFacade() {
         super(Perfil.class);
+    }
+
+    public List<Perfil> findAll() {
+        return createQueryNombra("Perfil.findAll", Perfil.class);
+    }
+
+    public List<Perfil> findByPerfil(String codPerfil) {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("codPerfil", codPerfil);
+        return createQueryListNombra("Perfil.findPerfil", parametros, Perfil.class);
     }
 }

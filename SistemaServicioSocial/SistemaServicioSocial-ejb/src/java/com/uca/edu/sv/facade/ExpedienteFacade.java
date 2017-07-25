@@ -5,7 +5,7 @@
  */
 package com.uca.edu.sv.facade;
 
-import com.uca.edu.sv.ss.Expediente;
+import com.uca.edu.sv.bd.Expediente;
 import java.io.Serializable;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;

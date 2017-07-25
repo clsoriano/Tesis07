@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author jcsoriano
  */
 @Entity
-@Table(name = "SS_TIPO_CATALOGO", schema = "SS")
+@Table(name = "SS_TIPO_CATALOGO")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SsTipoCatalogo.findAll", query = "SELECT s FROM SsTipoCatalogo s")})
@@ -44,7 +44,7 @@ public class SsTipoCatalogo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "COD_CATALOGO")
-    @SequenceGenerator(sequenceName = "SEQ_SS_TIPO_CATALOGO", name = "SEQ_SS_TIPO_CATALOGO", initialValue = 1, allocationSize = 1, schema = "SS")
+    @SequenceGenerator(sequenceName = "SEQ_SS_TIPO_CATALOGO", name = "SEQ_SS_TIPO_CATALOGO", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_SS_TIPO_CATALOGO")
     private BigDecimal codCatalogo;
     @Size(max = 100)
@@ -67,7 +67,7 @@ public class SsTipoCatalogo implements Serializable {
     private String modificadoPor;
     @Size(max = 1)
     @Column(name = "ESTADO")
-    private String estado;
+    private Character estado;
     @Column(name = "FECHA_MODIFICACION")
     @Temporal(TemporalType.DATE)
     private Date fechaModificacion;
@@ -137,11 +137,11 @@ public class SsTipoCatalogo implements Serializable {
         this.modificadoPor = modificadoPor;
     }
 
-    public String getEstado() {
+    public Character getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Character estado) {
         this.estado = estado;
     }
 

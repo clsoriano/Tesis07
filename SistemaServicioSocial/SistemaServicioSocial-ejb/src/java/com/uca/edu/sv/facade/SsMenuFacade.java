@@ -32,6 +32,14 @@ public class SsMenuFacade extends AbstractFacade<SsMenu> implements Serializable
     public List<SsMenu> getMenuXCodMenuPadre(HashMap<String, Object> parametros) {
         return createQueryListNombra("SsMenu.findByCodMenuPadre", parametros, SsMenu.class);
     }
+    
+    public List<SsMenu> getMenuXCodMenuPadreList(HashMap<String, Object> parametros) {
+        return createQueryListNombra("SsMenu.findByCodMenuPadreList", parametros, SsMenu.class);
+    }
+    
+    public List<SsMenu> getMenuXCodMenuChildList(HashMap<String, Object> parametros) {
+        return createQueryListNombra("SsMenu.findByCodMenuChildList", parametros, SsMenu.class);
+    }
 
     public List<SsMenu> findAll() {
         return createQueryNombra("SsMenu.findAll", SsMenu.class);

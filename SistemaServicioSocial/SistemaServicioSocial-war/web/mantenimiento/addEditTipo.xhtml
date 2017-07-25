@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui">
+    
+    <h:form id="fAddEditTipo">
+        <p:panel>
+            <h:panelGrid columns="2" cellpadding="5" cellspacing="5">
+                <p:outputLabel value="Nombre Grupo Institucion:"/>
+                <b:inputText id="tNombreGrupo"
+                             label="Nombre grupo"
+                             renderLabel="false"
+                             placeholder="Nombre Grupo"
+                             required="true"
+                             value="#{grupoTipoInstitucionController.grupoInstitucion.nbrGrupoInstitucion}"/>
+                <p:outputLabel value="Codigo Institucion:"/>
+                <b:inputText id="tCodigoTipo"
+                             renderLabel="false"
+                             label="Codigo Tipo Institucion"
+                             placeholder="Codigo Tipo Institucion"
+                             required="true"
+                             disabled="true"
+                             value="#{grupoTipoInstitucionController.tipoInstitucion.corrTipoInstitucion}"/>
+                <p:outputLabel value="Nombre Tipo Institucion:"/>
+                <b:inputText id="tNombreTipo"
+                             renderLabel="false"
+                             label="Nombre Tipo Institucion"
+                             placeholder="Nombre Tipo Institucion"
+                             required="true"
+                             value="#{grupoTipoInstitucionController.tipoInstitucion.nbrTipoInstitucion}"/>
+            </h:panelGrid>
+            <f:facet name="footer">
+                <b:commandButton id="tGuardar"
+                                 value="Guardar" 
+                                 look="success"
+                                 iconAwesome="fa-save"
+                                 action="#{grupoTipoInstitucionController.saveTipoInstitucion()}"
+                                 onsuccess="PF('modalAddEditTipo').hide();return false;"
+                                 update="growlGlobalError fTipo"/>
+                <b:commandButton id="tCancelar"
+                                 value="Cancelar" 
+                                 immediate="true"
+                                 look="danger"
+                                 iconAwesome="fa-close"
+                                 onclick="PF('modalAddEditGrupo').hide();return false;"/>
+            </f:facet>
+        </p:panel>
+    </h:form>
+
+</ui:composition>

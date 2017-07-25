@@ -5,7 +5,7 @@
  */
 package com.uca.edu.sv.facade;
 
-import com.uca.edu.sv.ss.Carrera;
+import com.uca.edu.sv.bd.Carrera;
 import java.io.Serializable;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;

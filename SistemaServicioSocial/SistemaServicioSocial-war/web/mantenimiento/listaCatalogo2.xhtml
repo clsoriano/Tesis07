@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <ui:define name="content">
+        <h2>
+            <p:outputLabel value="Catalogos"/>
+        </h2>
+        <p:separator/>
+        <h:form id="fTipoCatalogo">
+            <!--<p:panel id="pDataTipoCatalogo" header="Catalogos">-->
+            <p:dataTable id="dDataTipoCatalogo"
+                         value="#{catalogoController.listSsTipoCatalogo}"
+                         var="c"
+                         selection="#{catalogoController.selectedSsTipoCatalogo}"
+                         selectionMode="single"                         
+                         rowKey="#{c.codCatalogo}">
+                <p:column  headerText="Codigo tipo catalogo">
+                    <p:outputLabel value="#{c.codTipo}"/>
+                </p:column>
+                <p:column headerText="Nombre">
+                    <p:outputLabel value="#{c.valor}"/>
+                </p:column>
+                <p:column headerText="Descripcion">
+                    <p:outputLabel value="#{c.descripcion}"/>
+                </p:column>
+                <p:column headerText="Estado" >
+                    <p:outputLabel value="#{c.estado}"/>
+                </p:column>
+                <p:ajax event="rowSelect" listener="#{catalogoController.setIsEditCatalogo(true)}" update="fTipoCatalogo:cMod fTipoCatalogo:cElim fSubCatalogo:sAdd"/>
+                <p:ajax event="rowUnselect" listener="#{catalogoController.setIsEditCatalogo(false)}" update="fTipoCatalogo:cMod fTipoCatalogo:cElim"/>
+            </p:dataTable>
+            <!--<f:facet name="footer">-->
+            <p:commandButton id="cAdd"
+                             value="Agregar"
+                             action="#{catalogoController.newEditSsTipoCatalogo()}"
+                             oncomplete="PF('modalAddEditTipoCatalogo').show()"
+                             update="fAddEditTipoCatalogo"
+                             immediate="true"/>
+            <p:commandButton id="cMod"
+                             value="Modificar"
+                             action="#{catalogoController.newEditSsTipoCatalogo()}"
+                             disabled="#{!catalogoController.isEditCatalogo}"
+                             oncomplete="PF('modalAddEditTipoCatalogo').show()"
+                             update="fAddEditTipoCatalogo"
+                             immediate="true"/>
+            <p:commandButton id="cElim"
+                             value="Eliminar"
+                             disabled="#{!catalogoController.isEditCatalogo}"
+                             onclick="PF('modalElimiarTipoCatalogo').show();return false;"
+                             immediate="true">
+            </p:commandButton>
+            <!--</f:facet>-->
+            <!--</p:panel>-->
+
+            <p:dialog id="addEditTipoCatalogoModal" 
+                      widgetVar="modalAddEditTipoCatalogo"
+                      header="Tipo Catalogo"
+                      modal="true"
+                      showEffect="fade" 
+                      hideEffect="fade">
+                <ui:include src="addEditTipoCatalogo.xhtml"/>
+            </p:dialog>
+            <p:dialog id="eliminarTipoCatalogoModal" 
+                      widgetVar="modalElimiarTipoCatalogo" 
+                      header="Eliminar" 
+                      showEffect="fade" 
+                      hideEffect="fade">
+                <h:form>
+                    <p:panel>
+                        <p:outputLabel value="Esta seguro de eliminar el catalogo?"/>
+                        <f:facet name="footer">
+                            <p:commandButton value="No" type="button" icon="ui-icon-close" 
+                                             update="fTipoCatalogo"
+                                             onclick="PF('modalElimiarTipoCatalogo').hide()"
+                                             immediate="true"/>
+                            <p:commandButton value="Si" type="button" icon="ui-icon-check" 
+                                             actionListener="#{catalogoController.removeSsTipoCatalogo()}"
+                                             update="growlGlobalError fTipoCatalogo"
+                                             immediate="true"/>
+                        </f:facet>
+                    </p:panel>
+                </h:form>
+            </p:dialog>
+        </h:form>
+        <h3>
+            <p:outputLabel value="Detalle Catalogos"/>
+        </h3>
+        <p:separator/>
+        <h:form id="fSubCatalogo">
+            <!--<p:panel id="pDataTipoCatalogo" header="Catalogos">-->
+            <p:dataTable id="dDataSubCatalogo"
+                         value="#{catalogoController.listSsSubCatalogo}"
+                         var="s"
+                         selection="#{catalogoController.selectedSsSubCatalogo}"
+                         selectionMode="single"                         
+                         rowKey="#{s.codSubCatalogo}">
+                <p:column  headerText="Codigo tipo catalogo">
+                    <p:outputLabel value="#{s.descripcion}"/>
+                </p:column>
+                <p:column headerText="Valor">
+                    <p:outputLabel value="#{s.valor}"/>
+                </p:column>
+                <p:column headerText="Estado" >
+                    <p:outputLabel value="#{s.estado}"/>
+                </p:column>
+                <p:ajax event="rowSelect" listener="#{catalogoController.setIsEditSubCatalogo(true)}" update="fSubCatalogo:sMod fSubCatalogo:sElim"/>
+                <!--<p:ajax event="rowUnselect" listener="# {catalogoController.setIsEditSubCatalogo(false)}" update="fTipoCatalogo:cMod fTipoCatalogo:cElim"/>-->
+            </p:dataTable>
+            <!--<f:facet name="footer">-->
+            <p:commandButton id="sAdd"
+                             value="Agregar"
+                             action="#{catalogoController.newEditSsSubCatalogo()}"
+                             disabled="#{!catalogoController.isEditCatalogo}"
+                             update="fAddEditSubCatalogo"
+                             immediate="true"/>
+            <p:commandButton id="sMod"
+                             value="Modificar"
+                             action="#{catalogoController.newEditSsSubCatalogo()}"
+                             disabled="#{!catalogoController.isEditSubCatalogo}"
+                             update="fAddEditSubCatalogo"
+                             immediate="true"/>
+            <p:commandButton id="sElim"
+                             value="Eliminar"
+                             disabled="#{!catalogoController.isEditSubCatalogo}"
+                             onclick="PF('modalElimiarSubCatalogo').show();return false;"
+                             immediate="true">
+            </p:commandButton>
+            <!--</f:facet>-->
+            <!--</p:panel>-->
+            <p:dialog id="addEditSubCatalogoModal" 
+                      widgetVar="modalAddEditSubCatalogo"
+                      header="Tipo Catalogo"
+                      modal="true"
+                      showEffect="fade" 
+                      hideEffect="fade">
+                <ui:include src="addEditSubCatalogo.xhtml"/>
+            </p:dialog>
+            <p:dialog id="eliminarSubCatalogoModal" 
+                      widgetVar="modalElimiarSubCatalogo" 
+                      header="Eliminar" 
+                      showEffect="fade" 
+                      hideEffect="fade">
+                <h:form>
+                    <p:panel>
+                        <p:outputLabel value="Esta seguro de eliminar el catalogo?"/>
+                        <f:facet name="footer">
+                            <p:commandButton value="No" type="button" icon="ui-icon-close" 
+                                             update="fTipoCatalogo"
+                                             onclick="PF('modalElimiarSubCatalogo').hide()"
+                                             immediate="true"/>
+                            <p:commandButton value="Si" type="button" icon="ui-icon-check" 
+                                             actionListener="#{catalogoController.removeSsTipoCatalogo()}"
+                                             update="growlGlobalError fTipoCatalogo"
+                                             immediate="true"/>
+                        </f:facet>
+                    </p:panel>
+                </h:form>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

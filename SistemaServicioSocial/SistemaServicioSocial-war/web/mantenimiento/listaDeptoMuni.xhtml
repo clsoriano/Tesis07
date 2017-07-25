@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <h:form id="fDepto">
+        <p:panel id="pDepto" toggleable="true">
+            <b:dataTable value="#{deptoMuniController.departamentoList}" 
+                         var="d"
+                         id="pdDepto"
+                         onselect="ajax:deptoMuniController.setSelectedDepartamento(d);"
+                         ondeselect="ajax:deptoMuniController.setIsEditDepto(false);"
+                         select="true"
+                         selectionMode="single" 
+                         update="fPanelPais:fDepto:dMod fPanelPais:fDepto:dElim fPanelPais:fAddEditDepto fPanelPais:fMuni">
+                <b:dataTableColumn label="Codigo Departamento">
+                    <h:outputText value="#{d.codDepartamento}"/>
+                </b:dataTableColumn>
+                <b:dataTableColumn label="Nombre">
+                    <h:outputText value="#{d.nbrDepartamento}"/>
+                </b:dataTableColumn>
+            </b:dataTable>
+            <f:facet name="footer">    
+                <b:commandButton value="Nuevo" 
+                                 iconAwesome="fa-plus" 
+                                 action="#{deptoMuniController.newDepartamento()}"
+                                 onsuccess="PF('modalAddEditDepto').show();return false;"
+                                 update="fPanelPais:fAddEditDepto fPanelPais:fDepto:dMod fPanelPais:fDepto:dElim fPanelPais:fDepto:pdDepto"
+                                 immediate="true"/>
+                <b:commandButton id="dMod"
+                                 value="Modificar"
+                                 iconAwesome="fa-pencil"
+                                 disabled="#{!deptoMuniController.isEditDepto}" 
+                                 onclick="PF('modalAddEditDepto').show();return false;"
+                                 update="fPanelPais:fAddEditDepto"/>
+                <b:commandButton id="dElim"
+                                 value="Eliminar"
+                                 iconAwesome="fa-trash"
+                                 disabled="#{!deptoMuniController.isEditDepto}" 
+                                 action="#{deptoMuniController.removeDepartamento()}"/>
+            </f:facet>
+        </p:panel>
+    </h:form>
+    <p:separator/>
+    <h:form id="fMuni">
+        <p:panel id="pMuni" toggleable="true">
+            <b:dataTable value="#{deptoMuniController.municipioList}" 
+                         var="m"
+                         id="pdMuni"
+                         onselect="ajax:deptoMuniController.setSelectedMunicipio(m);"
+                         ondeselect="ajax:deptoMuniController.setIsEditMuni(false);"
+                         select="true"
+                         selectionMode="single" 
+                         update="fPanelPais:fMuni:mMod fPanelPais:fMuni:mElim fPanelPais:fAddEditMuni">
+                <b:dataTableColumn label="Codigo Municipio">
+                    <h:outputText value="#{m.municipioPK.codMunicipio}"/>
+                </b:dataTableColumn>
+                <b:dataTableColumn label="Nombre">
+                    <h:outputText value="#{m.nbrMunicipio}"/>
+                </b:dataTableColumn>
+            </b:dataTable>
+            <f:facet name="footer">    
+                <b:commandButton value="Nuevo"
+                                 id="mAdd"
+                                 iconAwesome="fa-plus"
+                                 action="#{deptoMuniController.newMunicipio()}"
+                                 disabled="#{!deptoMuniController.isEditDepto}"
+                                 onsuccess="PF('modalAddEditMuni').show();return false;"
+                                 update="fPanelPais:fAddEditMuni fPanelPais:fMuni:mMod fPanelPais:fMuni:mElim fPanelPais:fMuni:pdMuni"
+                                 immediate="true"/>
+                <b:commandButton id="mMod"
+                                 value="Modificar"
+                                 iconAwesome="fa-pencil"
+                                 disabled="#{!deptoMuniController.isEditMuni}"
+                                 onclick="PF('modalAddEditMuni').show();return false;"
+                                 update="fPanelPais:fAddEditMuni"/>
+                <b:commandButton id="mElim"
+                                 value="Eliminar"
+                                 iconAwesome="fa-trash"
+                                 disabled="#{!deptoMuniController.isEditMuni}" 
+                                 action="#{deptoMuniController.removeMunicipio()}"/>
+            </f:facet>
+        </p:panel>
+    </h:form>
+    <p:dialog id="addEditDepto"
+              widgetVar="modalAddEditDepto"
+              showEffect="fade"
+              hideEffect="fade"
+              modal="true"
+              position="center center" 
+              onShow="PF('modalAddEditDepto').initPosition()"
+              style="position:absolute; top: 10px;"
+              header="#{deptoMuniController.isEditDepto ? 'Modificacion':'Nuevo'} Departamento">
+        <ui:include src="addEditDepto.xhtml"/>
+    </p:dialog>
+    <p:dialog id="addEditMuni"
+              widgetVar="modalAddEditMuni"
+              showEffect="fade"
+              hideEffect="fade"
+              modal="true"
+              position="center center" 
+              onShow="PF('modalAddEditMuni').initPosition()"
+              style="position:absolute; top: 10px;"
+              header="#{deptoMuniController.isEditMuni ? 'Modificacion':'Nuevo'} Municipio">
+        <ui:include src="addEditMuni.xhtml"/>
+    </p:dialog>
+
+</ui:composition>

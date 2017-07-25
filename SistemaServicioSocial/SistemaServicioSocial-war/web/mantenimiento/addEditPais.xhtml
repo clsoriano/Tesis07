@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:form id="fAddEditPais">
+        <p:panel>
+            <h:panelGrid columns="2" cellpadding="5" cellspacing="5">
+                <p:outputLabel value="Codigo pais:"/>
+                <b:inputText id="pCodPais"
+                             label="Codigo Pais"
+                             renderLabel="false"
+                             placeholder="Codigo pais"
+                             required="true"
+                             value="#{paisController.pais.codPais}" 
+                             disabled="#{paisController.isEditPais}"/>
+                <p:outputLabel value="Nombre pais:"/>
+                <b:inputText id="pNomPais"
+                             placeholder="Nombre pais"
+                             value="#{paisController.pais.nbrPais}"/>
+            </h:panelGrid>
+            <f:facet name="footer">
+                <p:commandButton id="pGuardar"
+                                 value="Guardar"
+                                 icon="fa fa-save" 
+                                 action="#{paisController.savePais()}"
+                                 oncomplete="PF('modalAddEditPais').hide();return false;"
+                                 update="growlGlobalError fPanelPais:fPais"/>
+                <p:commandButton id="pCancelar"
+                                 value="Cancelar" 
+                                 icon="fa fa-close" 
+                                 immediate="true"
+                                 onclick="PF('modalAddEditPais').hide();return false;"/>
+            </f:facet>
+        </p:panel>
+    </h:form>
+
+</ui:composition>

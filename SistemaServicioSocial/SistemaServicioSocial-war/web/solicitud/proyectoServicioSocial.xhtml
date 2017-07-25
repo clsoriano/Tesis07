@@ -13,10 +13,10 @@
             <b:well>
 
                 <b:dataTable value="#{proyecto.listProyecto}" var="p">
-                    <b:dataTableColumn label="Institucion">
+                    <b:dataTableColumn label="Contraparte">
                         <h:outputText value="#{p.institucion}"/>
                     </b:dataTableColumn>
-                    <b:dataTableColumn label="Proyecto/Actividad">
+                    <b:dataTableColumn label="Actividad">
                         <h:outputText value="#{p.actividad}"/>
                     </b:dataTableColumn>
                     <b:dataTableColumn label="Perfil/alumno">
@@ -28,7 +28,7 @@
                     <b:dataTableColumn label="Horario dias">
                         <h:outputText value="#{p.horario}"/>
                     </b:dataTableColumn>
-                    <b:dataTableColumn label="Tipo de servicio">
+                    <b:dataTableColumn label="Modalidad">
                         <h:outputText value="#{p.tipoServicio}"/>
                     </b:dataTableColumn>
                     <b:dataTableColumn label="Responsable">

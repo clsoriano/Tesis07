@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -25,11 +26,28 @@ public class MenuBean implements Serializable {
     @Inject
     private SsMenuFacade ssMenuFacade;
     private SsMenu ssMenu;
-    private boolean editable;
+    private boolean isEditMenu;
 
     @PostConstruct
     public void _init() {
-        
+        ssMenu = new SsMenu();
+    }
+
+    public boolean isIsEditMenu() {
+        return isEditMenu;
+    }
+
+    public void setIsEditMenu(boolean isEditMenu) {
+        this.isEditMenu = isEditMenu;
+    }
+
+    public void setSelectedSsMenu(SsMenu ssMenu) {
+        this.isEditMenu = true;
+        this.ssMenu = ssMenu;
+    }
+
+    public SsMenu getSelectedSsMenu() {
+        return ssMenu;
     }
 
     public List<SsMenu> getListMenu() {
@@ -40,53 +58,43 @@ public class MenuBean implements Serializable {
         return ssMenuFacade.findMenuPadre();
     }
 
-    public String nuevoMenu() {
+    public void nuevoMenu() {
+        isEditMenu = false;
         ssMenu = new SsMenu();
-        return "menu?faces-redirect=true";
     }
 
     public SsMenu getSsMenu() {
         return ssMenu;
     }
 
-    public void setSsMenu(SsMenu ssMenu) {        
-        this.editable = true;
+    public void setSsMenu(SsMenu ssMenu) {
         this.ssMenu = ssMenu;
     }
 
-    public String saveMenu() {
-        ssMenuFacade.create(ssMenu);
-        addMessage("Almacenado", "Se almacana opcion de menu correctamente.");
-        return "listaMenu?faces-redirect=true";
+    public void saveMenu() {
+        try {
+            if (!isEditMenu) {
+                ssMenuFacade.create(ssMenu);
+            } else {
+                ssMenuFacade.edit(ssMenu);
+            }
+            addMessage(FacesMessage.SEVERITY_INFO, "Almacenado", "Se almaceno menu correctamente.");
+        } catch (Exception ex) {
+            addMessage(FacesMessage.SEVERITY_FATAL, "Error", "Error almacenando menu correctamente.");
+        }
     }
 
-    public String editMenu() {
-        ssMenuFacade.edit(ssMenu);
-        addMessage("Almacenado", "Se modifica opcion de menu correctamente.");
-        return "listaMenu?faces-redirect=true";
+    public void removeMenu() {
+        try {
+            ssMenuFacade.remove(ssMenu);
+            addMessage(FacesMessage.SEVERITY_INFO, "Eliminar", "Se elimina opcion de menu correctamente.");
+        } catch (Exception ex) {
+            addMessage(FacesMessage.SEVERITY_FATAL, "Error", "Error eliminando menu correctamente.");
+        }
     }
 
-    public void deleteMenu() {
-        this.editable = false;
-        ssMenuFacade.remove(ssMenu);
-        addMessage("Eliminar", "Se elimina opcion de menu correctamente.");
-    }
-
-    public String redirectEditMenu() {
-        this.editable = false;
-        return "editMenu?faces-redirec=true";
-    }
-
-    public boolean isEditable() {
-        return editable;
-    }
-
-    public void setEditable(boolean editable) {
-        this.editable = editable;
-    }
-
-    public void addMessage(String summary, String detail) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail));
+    public void addMessage(Severity severity, String summary, String detail) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, summary, detail));
     }
 
     public String getNamePadre(String codMenu) {
@@ -96,8 +104,5 @@ public class MenuBean implements Serializable {
         }
         return "";
     }
-    
-    public String cancel(){
-        return "listaMenu?faces-redirect=true";
-    }
+
 }

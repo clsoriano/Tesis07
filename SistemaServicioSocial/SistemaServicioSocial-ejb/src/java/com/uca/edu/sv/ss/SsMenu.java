@@ -20,12 +20,12 @@ import javax.persistence.Table;
  * @author jcsoriano
  */
 @Entity
-@Table(name = "SS_MENU", schema = "SS")
+@Table(name = "SS_MENU")
 public class SsMenu implements Serializable {
 
     @Id
     @Column(name = "COD_MENU")
-    @SequenceGenerator(sequenceName = "SEQ_SS_MENU", name = "SEQ_SS_MENU", initialValue = 1, allocationSize = 1, schema = "SS")
+    @SequenceGenerator(sequenceName = "SEQ_SS_MENU", name = "SEQ_SS_MENU", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_SS_MENU")
     private BigDecimal codMenu;
     @Column(name = "DESCRIPCION")
@@ -38,6 +38,8 @@ public class SsMenu implements Serializable {
     private BigDecimal orden;
     @Column(name = "COD_MENU_PADRE")
     private BigDecimal codMenuPadre;
+    @Column(name = "ESTADO")
+    private Character estado;
 
     public BigDecimal getCodMenu() {
         return codMenu;
@@ -85,6 +87,14 @@ public class SsMenu implements Serializable {
 
     public void setCodMenuPadre(BigDecimal codMenuPadre) {
         this.codMenuPadre = codMenuPadre;
+    }
+
+    public Character getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Character estado) {
+        this.estado = estado;
     }
 
 }

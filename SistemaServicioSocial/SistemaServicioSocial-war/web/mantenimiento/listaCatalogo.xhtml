@@ -9,10 +9,18 @@
                 xmlns="http://www.w3.org/1999/xhtml">
 
     <ui:define name="content">
+        <h1>
+            Catalogos
+        </h1>
         <h:form id="catalogos">
-            <h3 class="glyphicon glyphicon-list">
-                <p:outputLabel value="Catalogos"/>
-            </h3>
+            <p:separator/>
+            <b:commandButton id="cAdd" 
+                             value="Nuevo Catalogo" 
+                             iconAwesome="fa-plus"
+                             look="primary"
+                             action="#{catalogoBean.newTipoCatalogo()}"
+                             update="addEditCatalogoModal catalogos:pCat:pDataCatalogo catalogos:cMod catalogos:cElim detCatalogos"
+                             immediate="true"/>
             <p:panel header="Catalogo" toggleable="true" id="pCat">
                 <b:dataTable
                     id="pDataCatalogo"
@@ -38,12 +46,6 @@
                 </b:dataTable>
                 <f:facet name="footer">
                     <!-- Footer tipo catalogo -->
-                    <b:commandButton id="cAdd" 
-                                     value="Agregar" 
-                                     iconAwesome="fa-plus"     
-                                     action="#{catalogoBean.newTipoCatalogo()}"
-                                     update="addEditCatalogoModal catalogos:pCat:pDataCatalogo catalogos:cMod catalogos:cElim detCatalogos"
-                                     immediate="true"/>
                     <b:commandButton id="cMod"
                                      value="Modificar" 
                                      iconAwesome="fa-pencil"
@@ -57,12 +59,19 @@
                                      disabled="#{!catalogoBean.isEditable}"
                                      immediate="true"/>
                 </f:facet>
-                <p:dialog id="addEditCatalogoModal" widgetVar="modalAddEditCatalogo">
-                    <ui:include src="tipoCatalogo.xhtml"/>
-                </p:dialog>
             </p:panel>
         </h:form>
         <h:form id="detCatalogos">
+            <p:separator/>
+            <b:commandButton id="dAgregar"
+                             value="Nuevo Detalle Catalogo" 
+                             look="primary"
+                             disabled="#{!catalogoBean.isEditable}"
+                             iconAwesome="fa-plus"
+                             action="#{catalogoBean.newSubCatalogo()}"
+                             update="addEditSubCatalogo"
+                             immediate="true"
+                             />
             <p:panel header="Detalle Catalogo" toggleable="true" id="pDetCatalogo">
                 <b:dataTable
                     value="#{catalogoBean.lisSsSubCatalogo}"
@@ -85,14 +94,6 @@
                 </b:dataTable>
                 <f:facet name="footer">
                     <!-- Footer sub catalogo -->
-                    <b:commandButton id="dAgregar"
-                                     value="Agregar" 
-                                     disabled="#{!catalogoBean.isEditable}"
-                                     iconAwesome="fa-plus"
-                                     action="#{catalogoBean.newSubCatalogo()}"
-                                     update="addEditSubCatalogo"
-                                     immediate="true"
-                                     />
                     <b:commandButton id="dMod"
                                      value="Modificar" 
                                      iconAwesome="fa-pencil"
@@ -103,11 +104,23 @@
                                      iconAwesome="fa-trash"
                                      disabled="#{!catalogoBean.isEditSubCatalogo}"/>
                 </f:facet>
-                <p:dialog id="addEditSubCatalogo" widgetVar="modalAddEditSubCatalogo" modal="true">
-                    <ui:include src="subCatalogo.xhtml"/>
-                </p:dialog>
             </p:panel>
         </h:form>
+        <p:dialog id="addEditCatalogoModal" 
+                  widgetVar="modalAddEditCatalogo"
+                  position="center center" 
+                  onShow="PF('modalAddEditCatalogo').initPosition()"
+                  style="position: relative; top:300px;">
+            <ui:include src="tipoCatalogo.xhtml"/>
+        </p:dialog>
+        <p:dialog id="addEditSubCatalogo" 
+                  widgetVar="modalAddEditSubCatalogo" 
+                  modal="true"
+                  position="center center" 
+                  onShow="PF('modalAddEditSubCatalogo').initPosition()"
+                  style="position: relative; top:300px;">
+            <ui:include src="subCatalogo.xhtml"/>
+        </p:dialog>
     </ui:define>
 
 </ui:composition>

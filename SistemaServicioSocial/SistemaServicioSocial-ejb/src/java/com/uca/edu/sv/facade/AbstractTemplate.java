@@ -39,7 +39,7 @@ public class AbstractTemplate<T> implements Serializable {
     }
 
     public void remove(T entity) {
-        getEntityManager().remove(entity);
+        getEntityManager().remove(getEntityManager().merge(entity));
     }
 
     public T createQueryNombra(String nombreQuery, HashMap<?, Object> parametros, Class<?> clase) {

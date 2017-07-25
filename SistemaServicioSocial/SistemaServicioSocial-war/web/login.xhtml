@@ -5,32 +5,29 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:b="http://bootsfaces.net/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns="http://www.w3.org/1999/xhtml">
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content2">
         <h:form prependId="false">
-            <h2 style="color:white;">Iniciar sesión</h2>
-            <b:inputText id="email" placeholder="Usuario/Email address" value="#{manageLogin.user}" required="true">
-                <f:facet name="prepend">
-                    <b:iconAwesome name="user" />
+            <p:panel header="Iniciar Sesion">
+                <b:inputText id="email" placeholder="Usuario/Carnet" value="#{manageLogin.user}" required="true">
+                    <f:facet name="prepend">
+                        <b:iconAwesome name="user" />
+                    </f:facet>
+                </b:inputText>
+                <b:inputText id="password" placeholder="Contraseña" type="password" value="#{manageLogin.password}" required="true">
+                    <f:facet name="prepend">
+                        <b:iconAwesome name="key" />
+                    </f:facet>
+                </b:inputText>
+                <!--b:selectBooleanCheckbox value="true" caption="Recordarme"/-->
+
+                <f:facet name="footer">
+                    <b:commandButton look="primary btn-block" value="Ingresar" iconAwesome="sign-in" size="lg" 
+                                     action="#{manageLogin.validateUser()}" ajax="true" update="growlSpecific" process="@form @this"/>
                 </f:facet>
-            </b:inputText>
-            <b:inputText id="password" placeholder="Contraseña" type="password" value="#{manageLogin.password}" required="true">
-                <f:facet name="prepend">
-                    <b:iconAwesome name="key" />
-                </f:facet>
-            </b:inputText>
-            <!--b:selectBooleanCheckbox value="true" caption="Recordarme"/-->
-            <b:commandButton look="primary btn-block" value="Ingresar" iconAwesome="sign-in" size="lg" 
-                             action="#{manageLogin.validateUser()}" ajax="true" update="growlSpecific" process="@form @this"/>
-            <b:growl id="growlSpecific" placementFrom="bottom" show-detail="true"
-                     global-only="false"
-                     show-summary="true" 
-                     allow-dismiss="true"
-                     animation-enter="animated bounceInDown"
-                     animation-exit="animated flipOutX"
-                     escape="true"                         
-                     class="alert alert-danger"/>
+            </p:panel>
         </h:form>
     </ui:define>
 

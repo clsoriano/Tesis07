@@ -9,7 +9,13 @@
     <named-query name="SsMenu.findByUsuario">
         <query>
             <![CDATA[
-                SELECT o FROM SsMenu o WHERE o.codMenuPadre = 0 OR o.codMenuPadre IS NULL ORDER BY o.orden ASC
+                SELECT DISTINCT(o) FROM SsMenu o
+                INNER JOIN SsPerfilXMenu s
+                ON s.codMenu = o.codMenu 
+                WHERE (o.codMenuPadre = 0 OR o.codMenuPadre IS NULL)
+                AND s.codPerfil = :codPerfil
+                AND s.codMenu = o.codMenu
+                ORDER BY o.orden ASC
             ]]>
         </query>
     </named-query>
@@ -27,10 +33,34 @@
             ]]>
         </query>
     </named-query>
+    <named-query name="SsMenu.findByCodMenuPadreList">
+        <query>
+            <![CDATA[
+                SELECT o FROM SsMenu o 
+                WHERE o.codMenuPadre = 0 OR o.codMenuPadre IS NULL
+                ORDER BY o.orden ASC
+            ]]>
+        </query>
+    </named-query>
+    <named-query name="SsMenu.findByCodMenuChildList">
+        <query>
+            <![CDATA[
+                SELECT o FROM SsMenu o 
+                WHERE o.codMenuPadre = :codMenuPadre
+                ORDER BY o.orden ASC
+            ]]>
+        </query>
+    </named-query>
     <named-query name="SsMenu.findByCodMenuPadre">
         <query>
             <![CDATA[
-                SELECT o FROM SsMenu o WHERE o.codMenuPadre = :codMenuPadre
+                SELECT o FROM SsMenu o
+                INNER JOIN SsPerfilXMenu s
+                ON s.codMenu = o.codMenuPadre 
+                WHERE o.codMenuPadre = :codMenuPadre
+                AND s.codPerfil = :codPerfil
+                AND s.subMenu = o.codMenu
+                ORDER BY o.orden ASC
             ]]>
         </query>
     </named-query>
@@ -47,6 +77,86 @@
                 SELECT o FROM Usuario o ORDER BY o.codUsuario ASC
             ]]>
         </query>
-    </named-query>  
+    </named-query>
+    <named-query name="Usuario.findUsuario">
+        <query>
+            <![CDATA[
+                SELECT o FROM Usuario o WHERE o.codUsuario = :codUsuario AND o.clave = :clave AND o.estado = 'A'
+            ]]>
+        </query>
+    </named-query> 
+    <named-query name="Perfil.findAll">
+        <query>
+            <![CDATA[
+                SELECT p FROM Perfil p ORDER BY p.codPerfil,p.nbrPerfil ASC
+            ]]>
+        </query>
+    </named-query> 
+    <named-query name="SsPerfilXMenu.findAll">
+        <query>
+            <![CDATA[
+                SELECT p FROM SsPerfilXMenu p ORDER BY p.codPerfil ASC
+            ]]>
+        </query>
+    </named-query>
+    <named-query name="Municipio.findByDepto">
+        <query>
+            <![CDATA[
+                SELECT m FROM Municipio m WHERE m.municipioPK.codDepartamento = :codDepartamento ORDER BY m.nbrMunicipio ASC
+            ]]>
+        </query>
+    </named-query> 
+    <named-query name="Alumno.findCarne">
+        <query>
+            <![CDATA[
+                SELECT a FROM Alumno a, AlumnocssPwd b WHERE a.carne = :carne AND a.carne = b.carnet AND b.password = :password
+            ]]>
+        </query>
+    </named-query>
+    <named-query name="SsPerfilXAlumno.findCarne">
+        <query>
+            <![CDATA[
+                SELECT a FROM SsPerfilXAlumno a WHERE a.ssPerfilXAlumnoPK.carne = :carne
+            ]]>
+        </query>
+    </named-query> 
+    <named-query name="Perfil.findPerfil">
+        <query>
+            <![CDATA[
+                SELECT p FROM Perfil p WHERE p.codPerfil = :codPerfil
+            ]]>
+        </query>
+    </named-query>
+    <named-query name="PerfilXUsuario.findByCodUsuario">
+        <query>
+            <![CDATA[
+                SELECT p FROM PerfilXUsuario p WHERE p.codUsuario = :codUsuario
+            ]]>
+        </query>
+    </named-query>
+    <named-query name="SsUsuarioSesion.findByCodUsuarioCarnet">
+        <query>
+            <![CDATA[
+                SELECT u FROM SsUsuarioSesion u WHERE u.codUsuarioCarnet = :codUsuarioCarnet
+            ]]>
+        </query>
+    </named-query>
+    <named-query name="Usuario.findByUsuario">
+        <query>
+            <![CDATA[
+                SELECT o FROM Usuario o WHERE o.codUsuario = :codUsuario
+            ]]>
+        </query>
+    </named-query>
+    <named-query name="Usuario.findByTipInstitucion">
+        <query>
+            <![CDATA[
+                SELECT o FROM Usuario o, PerfilXUsuario p
+                WHERE p.codPerfil = :codPerfil
+                AND o.estado = :estado
+                AND o.codUsuario = p.codUsuario
+            ]]>
+        </query>
+    </named-query>
 </entity-mappings>
 

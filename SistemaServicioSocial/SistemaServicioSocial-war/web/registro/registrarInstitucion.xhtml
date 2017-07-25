@@ -1,55 +1,104 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./../template/layoutTemplate.xhtml"
+                template="./../template/registerLayout.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:b="http://bootsfaces.net/ui"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns="http://www.w3.org/1999/xhtml">
 
-    <ui:define name="left">
-
-    </ui:define>
-
     <ui:define name="content">
         <h:form style="max-width: 800px;">
-            <p:outputLabel value=""/>
-            <h1>Registro de institucion externa</h1>
+            <h1>Registro de institucion</h1>
             <b:well>
-                <b:selectOneMenu required="true">
-                    <f:facet name="prepend">
+                <p:panel>
+                    <h:panelGrid columns="2" cellpadding="5">
                         <p:outputLabel value="Tipo de institucion:"/>
+                        <p:selectOneMenu required="true"
+                                         style="width: 400px;"
+                                         value="#{institucionBean.institucion.corrTipoInstitucion.corrTipoInstitucion}"
+                                         filter="true">
+                            <f:selectItem itemLabel="- Seleccione -" itemValue=""/>
+                            <f:selectItems value="#{institucionBean.tipoInstitucionList}" 
+                                           var="t" 
+                                           itemLabel="#{t.nbrTipoInstitucion}" 
+                                           itemValue="#{t.corrTipoInstitucion}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Nombre de institucion:"/>
+                        <b:inputText value="#{institucionBean.institucion.nbrInstitucion}"
+                                     placeholder="Ingrese Nombre"/>
+                        <p:outputLabel value="Direccion de la institucion:"/>
+                        <b:inputText value="#{institucionBean.institucion.direccion}"
+                                     placeholder="Ingrese Direccion"/>
+                        <p:outputLabel value="Telefono:"/>
+                        <b:inputText value="#{institucionBean.institucion.telefono}" 
+                                     placeholder="Ejemplo: 77009000"/>
+                        <p:outputLabel value="Fax:"/>
+                        <b:inputText value="#{institucionBean.institucion.fax}"
+                                     placeholder="Ejemplo: 50377009000"/>
+                        <p:outputLabel value="Nombre de contacto:"/>
+                        <b:inputText value="#{institucionBean.institucion.nbrContacto}"
+                                     placeholder="Ingrese Nombre Contacto"/>
+                        <p:outputLabel value="Correo electronico:"/>
+                        <b:inputText value="#{institucionBean.institucion.correoElectronico}"
+                                     placeholder="Ingrese Correo donde se notificara usuario"/>
+                        <p:outputLabel value="Pais:"/>
+                        <p:selectOneMenu value="#{institucionBean.institucion.codPais.codPais}" 
+                                         style="width: 400px;"
+                                         filter="true">
+                            <f:selectItem noSelectionOption="true" itemLabel="- Seleccionar -" itemValue=""/>
+                            <f:selectItems value="#{institucionBean.paisList}" var="p" itemLabel="#{p.nbrPais}" itemValue="#{p.codPais}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Departamento:"/>
+                        <p:selectOneMenu value="#{institucionBean.institucion.municipio.municipioPK.codDepartamento}" 
+                                         valueChangeListener="#{institucionBean.deptoValueChange}"
+                                         style="width: 400px;"
+                                         filter="true">
+                            <f:selectItem noSelectionOption="true" itemLabel="- Seleccionar -" itemValue=""/>
+                            <f:selectItems value="#{institucionBean.departamentoList}" var="d" itemLabel="#{d.nbrDepartamento}" itemValue="#{d.codDepartamento}"/>
+                            <p:ajax event="change" update="iMunicipio"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Municipio:"/>
+                        <p:selectOneMenu value="#{institucionBean.institucion.municipio.municipioPK.codMunicipio}" 
+                                         id="iMunicipio" 
+                                         style="width: 400px;"
+                                         filter="true">
+                            <f:selectItem noSelectionOption="true" itemLabel="- Seleccionar -" itemValue=""/>
+                            <f:selectItems value="#{institucionBean.municipioList}" var="m" itemLabel="#{m.nbrMunicipio}" itemValue="#{m.municipioPK.codDepartamento}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <f:facet name="footer">
+                        <b:commandButton value="Enviar" 
+                                         look="success" 
+                                         iconAwesome="fa-paper-plane"  
+                                         ajax="true"
+                                         action="#{institucionBean.registrar()}"
+                                         update="@form growlErrorRegister"/>
+                        <b:commandButton value="Cancelar" look="danger" iconAwesome="fa-times" action="#{institucionBean.login()}" immediate="true"/>
                     </f:facet>
-                    <f:selectItem itemLabel="- Seleccione -" value=""/>
-                </b:selectOneMenu>
-                <b:inputText>
-                    <f:facet name="prepend">
-                        <p:outputLabel value="Nombre de institucion"/>
-                    </f:facet>
-                </b:inputText>
-                <b:inputText>
-                    <f:facet name="prepend">
-                        <p:outputLabel value="Direccion de la institucion"/>
-                    </f:facet>
-                </b:inputText>
-                <b:commandButton value="Enviar" look="success" iconAwesome="fa-paper-plane" 
-                                 action="#{institucionBean.registrar()}" 
-                                 ajax="true"
-                                 process="@this"
-                                 onclick="$('.modalRegistro').modal();return false;">
-                </b:commandButton>&nbsp;
-                <b:commandButton value="Cancelar" look="danger" iconAwesome="fa-times" action="#{institucionBean.login()}" immediate="true"/>
-                <b:modal id="modalRegistro" title="Registro de Institucion Externa" styleClass="modalRegistro"
-                         closable="false" close-on-escape="false" backdrop="false">
-                    <h:form>
-                        <p>Se registraron correctamente los datos ingresados</p>
-                        <p>Se notifcara via correo su usuario y contraseña para completar la solicitud.</p>
-                        <b:commandButton value="Ok" look="success" action="#{institucionBean.login()}"/>
-                    </h:form>
-                </b:modal>
+                </p:panel>
             </b:well>
         </h:form>
+        <p:dialog widgetVar="modalRegistarDatos"
+                  header="Registro de institucion"
+                  position="center center" 
+                  onShow="PF('modalRegistarDatos').initPosition()"
+                  style="position:absolute; top: 10px;"
+                  modal="true"
+                  closable="false">
+            <h:form>
+                <b:well>
+                    <p:panel>
+                        <p><p:outputLabel value="Se registraron correctamente los datos ingresados."/></p>
+                        <p:outputLabel value="Se notifcara via correo su usuario y contraseña para completar la solicitud."/>
+                        <f:facet name="footer">
+                            <b:commandButton value="Ok" look="success" action="#{institucionBean.login()}"/>
+                        </f:facet>
+                    </p:panel>
+                </b:well>
+            </h:form>
+        </p:dialog>
     </ui:define>
 
 </ui:composition>

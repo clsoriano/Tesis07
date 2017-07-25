@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:define name="content">
+        <h1>Pais</h1>
+        <p:panel>
+            Mantenimiento / Pais
+        </p:panel> 
+        <p:separator/>
+        <p:tabView id="fPanelPais">
+            <p:tab title="Pais">
+                <ui:include src="listaPais.xhtml"/>
+            </p:tab>
+            <p:tab title="Departamento/Municipio">
+                <ui:include src="listaDeptoMuni.xhtml"/>
+            </p:tab>
+        </p:tabView>
+    </ui:define>
+
+</ui:composition>

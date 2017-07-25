@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+    <h:form id="fAddEditPerfilMenu">
+        <p:panel>
+            <h2>Perfil/Menu</h2>
+            <h:panelGrid columns="2" cellpadding="5">
+                <p:outputLabel value="Perfil:"/>
+                <p:selectOneMenu label="Perfil" 
+                                 value="#{perfilXMenuController.ssPerfilXMenu.codPerfil}"
+                                 required="true"
+                                 style="width: 200px;">
+                    <f:selectItem itemLabel="- Seleccionar -" itemValue=""/>
+                    <f:selectItems value="#{perfilXMenuController.listPerfil}" 
+                                   var="p" 
+                                   itemLabel="#{p.nbrPerfil}"
+                                   itemValue="#{p.codPerfil}"/>
+                </p:selectOneMenu>
+                <p:outputLabel value="Menu Padre:"/>
+                <p:selectOneMenu label="Menu Padres" 
+                                 value="#{perfilXMenuController.ssPerfilXMenu.codMenu}"
+                                 required="true"
+                                 style="width: 200px;"
+                                 valueChangeListener="#{perfilXMenuController.valueMenuChange}">
+                    <f:selectItem itemLabel="- Seleccionar -" itemValue=""/>
+                    <f:selectItems value="#{perfilXMenuController.listSsMenu}" 
+                                   var="m" 
+                                   itemLabel="#{m.descripcion}"
+                                   itemValue="#{m.codMenu}"/>
+                    <p:ajax event="change" update="subMenu"/>
+                </p:selectOneMenu>
+                <p:outputLabel value="Sub Menu:"/>
+                <p:selectOneMenu label="Sub Menu" 
+                                 value="#{perfilXMenuController.ssPerfilXMenu.subMenu}"
+                                 required="false"
+                                 style="width: 200px;"
+                                 id="subMenu">
+                    <f:selectItem itemLabel="- Seleccionar -" itemValue=""/>
+                    <f:selectItems value="#{perfilXMenuController.menuChildList}" 
+                                   var="m" 
+                                   itemLabel="#{m.descripcion}"
+                                   itemValue="#{m.codMenu}"/>
+                </p:selectOneMenu>
+                <p:outputLabel value="Estado:"/>
+                <b:radiobutton value="#{perfilXMenuController.ssPerfilXMenu.estado}">
+                    <f:selectItem itemLabel="Activo" itemValue="A"/>
+                    <f:selectItem itemLabel="Inactivo" itemValue="I"/>
+                </b:radiobutton>
+            </h:panelGrid>
+            <f:facet name="footer">
+                <b:commandButton value="Guardar" 
+                                 look="success" 
+                                 iconAwesome="fa-save" 
+                                 action="#{perfilXMenuController.savePerfilMenu()}"
+                                 update="fPanelPerfil:fPerfilMenu growlGlobalError"
+                                 onsuccess="PF('modalAddEditPerfilMenu').hide();return false;"/>
+                <b:commandButton value="Cancelar" 
+                                 look="danger" 
+                                 iconAwesome="fa-close" 
+                                 immediate="true"
+                                 onclick="PF('modalAddEditPerfilMenu').hide();return false;"/>
+            </f:facet>
+        </p:panel>
+    </h:form>
+
+</ui:composition>

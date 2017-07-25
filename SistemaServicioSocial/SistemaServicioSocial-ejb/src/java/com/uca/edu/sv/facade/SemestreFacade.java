@@ -5,7 +5,7 @@
  */
 package com.uca.edu.sv.facade;
 
-import com.uca.edu.sv.ss.Semestre;
+import com.uca.edu.sv.bd.Semestre;
 import java.io.Serializable;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;

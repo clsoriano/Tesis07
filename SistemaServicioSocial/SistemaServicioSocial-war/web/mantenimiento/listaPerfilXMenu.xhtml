@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <h:form id="fPerfilMenu">
+        <b:commandButton value="Nuevo"
+                         look="primary"
+                         iconAwesome="fa-plus"
+                         action="#{perfilXMenuController.newPerfilMenu()}"
+                         onsuccess="PF('modalAddEditPerfilMenu').show();return false;"
+                         update="fPanelPerfil:fAddEditPerfilMenu fPanelPerfil:fPerfilMenu:pmMod fPanelPerfil:fPerfilMenu:pmElim fPanelPerfil:fPerfilMenu:pdPerfilMenu"
+                         immediate="true"/>
+        <p:separator/>
+        <p:panel header="Perfil/Menu" id="pPerfilMenu" toggleable="true">
+            <b:dataTable value="#{perfilXMenuController.listPerfilXMenu}" 
+                         var="pm"
+                         id="pdPerfilMenu"
+                         onselect="ajax:perfilXMenuController.setSelectedPerfilXMenu(pm);"
+                         ondeselect="ajax:perfilXMenuController.setIsEditPerfilXMenu(false);"
+                         select="true"
+                         selectionMode="single" 
+                         update="fPanelPerfil:fPerfilMenu:pmMod fPanelPerfil:fPerfilMenu:pmElim fPanelPerfil:fAddEditPerfilMenu">
+                <b:dataTableColumn label="Perfil">
+                    <h:outputText value="#{pm.codPerfil}"/>
+                </b:dataTableColumn>
+                <b:dataTableColumn label="Menu">
+                    <h:outputText value="#{perfilXMenuController.getDescripcionMenu(pm.codMenu)}"/>
+                </b:dataTableColumn>
+                <b:dataTableColumn label="Menu Hijo">
+                    <h:outputText value="#{perfilXMenuController.getDescripcionMenu(pm.subMenu)}"/>
+                </b:dataTableColumn>
+                <b:dataTableColumn label="Estado">
+                    <h:outputText value="#{pm.estado}"/>
+                </b:dataTableColumn>
+            </b:dataTable>
+            <f:facet name="footer">                     
+                <b:commandButton id="pmMod" 
+                                 value="Modificar" 
+                                 iconAwesome="fa-pencil" 
+                                 disabled="#{!perfilXMenuController.isEditPerfilXMenu}" 
+                                 update="fPanelPerfil:fAddEditPerfilMenu"
+                                 onclick="PF('modalAddEditPerfilMenu').show();return false;"/>
+                <b:commandButton id="pmElim"
+                                 value="Eliminar" 
+                                 iconAwesome="fa-trash" 
+                                 disabled="#{!perfilXMenuController.isEditPerfilXMenu}" 
+                                 action="#{perfilXMenuController.removePerfilXMenu()}"/>
+            </f:facet>
+        </p:panel>
+    </h:form>
+    <p:dialog id="addEditPerfilMenu"
+              widgetVar="modalAddEditPerfilMenu"
+              header="#{perfilXMenuController.isEditPerfilXMenu ? 'Modificacion':'Nuevo'}" 
+              showEffect="fade" 
+              hideEffect="fade"
+              position="center center" 
+              onShow="PF('modalAddEditPerfilMenu').initPosition()"
+              style="position:absolute; top: 10px;"
+              modal="true">
+        <ui:include src="addEditPerfilMenu.xhtml"/>
+    </p:dialog>
+
+</ui:composition>

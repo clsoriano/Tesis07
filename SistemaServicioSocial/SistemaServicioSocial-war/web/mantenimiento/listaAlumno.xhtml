@@ -5,29 +5,68 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="./../template/layoutTemplate.xhtml"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml">
 
     <ui:define name="content">
-        <h:form>
-            <h1>Alumnos</h1>
-            <b:form>
-                <b:dataTable>
+        <h1>Alumnos</h1>
+        <h:form id="fAlumno">
+            <b:commandButton value="Ver Alumno" 
+                             look="primary"
+                             iconAwesome="fa-eye" 
+                             action="#{usuarioBean.newUsuario()}"
+                             onsuccess="PF('modalAddEditUsuario').show();return false;"
+                             update=""
+                             immediate="true"/>
+            <p:separator/>
+            <p:panel id="pUsuario" header="Usuario" toggleable="true">
+                <b:dataTable value="#{alumnoController.alumnoList}"
+                             var="a" 
+                             id="dAlumno"
+                             onselect="ajax:alumnoController.setSelectedUsuario(u);"
+                             ondeselect="ajax:usuarioBean.setIsEditUsuario(false);"
+                             select="true"
+                             selectionMode="single" 
+                             update="">
                     <b:dataTableColumn label="Carnet">
+                        <h:outputText value="#{a.carne}"/>
                     </b:dataTableColumn>
-                    <b:dataTableColumn label="Nombre Completo">
+                    <b:dataTableColumn label="Nombres">
+                        <h:outputText value="#{a.nombres}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Apellidos">
+                        <h:outputText value="#{a.apellidos}"/>
                     </b:dataTableColumn>
                     <b:dataTableColumn label="Carrera">
+                        <h:outputText value="#{a.codCarrera.nbrCarrera}"/>
                     </b:dataTableColumn>
-                    <b:dataTableColumn label="Adicionado por">>
-                    </b:dataTableColumn>
-                    <b:dataTableColumn label="Fecha adicion">>
-                    </b:dataTableColumn>
-                    <b:dataTableColumn label="Modificado por"></b:dataTableColumn>
-                    <b:dataTableColumn label="Fecha modificacion"></b:dataTableColumn>
-                    <b:dataTableColumn label="CRUD"><b:button value="Mod" look="warning" icon="glyphicon glyphicon-pencil"/><b:button value="Eli" look="warning" icon="glyphicon glyphicon-trash"/></b:dataTableColumn>
                 </b:dataTable>
-            </b:form>
+                <f:facet name="footer">
+<!--                    <b:commandButton id="aVerAlumno" 
+                                     value="Ver Alumno" 
+                                     iconAwesome="fa-edit" 
+                                     disabled="# {!usuarioBean.isEditUsuario}" 
+                                     onclick="PF('modalAddEditAlumno').show();return false;"
+                                     update="fAddEditAlumno"
+                                     immediate="true"/>-->
+                    <!--                    <b:commandButton id="aElim" value="Eliminar" 
+                                                         iconAwesome="fa-trash" 
+                                                         action="# {usuarioBean.removeUsuario()}" 
+                                                         disabled="# {!usuarioBean.isEditUsuario}"
+                                                         update="growlGlobalError fUsuario"
+                                                         immediate="true"/>-->
+                </f:facet>
+            </p:panel>
         </h:form>
+<!--        <p:dialog id="addEditAlumno"
+                  widgetVar="modalAddEditAlumno"
+                   header="# {usuarioBean.isEditUsuario ? 'Modificacion':'Nuevo'}" 
+                  header="Alumno"
+                  showEffect="fade" 
+                  modal="true"
+                  hideEffect="fade">
+                  <ui:include src="addEditAlumno.xhtml"/>
+        </p:dialog>-->
     </ui:define>
 
 </ui:composition>

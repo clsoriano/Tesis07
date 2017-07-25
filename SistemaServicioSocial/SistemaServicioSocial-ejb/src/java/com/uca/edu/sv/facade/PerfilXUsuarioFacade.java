@@ -5,8 +5,9 @@
  */
 package com.uca.edu.sv.facade;
 
-import com.uca.edu.sv.ss.PerfilXUsuario;
+import com.uca.edu.sv.bd.PerfilXUsuario;
 import java.io.Serializable;
+import java.util.HashMap;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
@@ -20,5 +21,11 @@ public class PerfilXUsuarioFacade extends AbstractFacade<PerfilXUsuario> impleme
 
     public PerfilXUsuarioFacade() {
         super(PerfilXUsuario.class);
+    }
+
+    public PerfilXUsuario findByUsuario(String codUsuario) {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("codUsuario", codUsuario);
+        return createQueryNombra("PerfilXUsuario.findByCodUsuario", parametros, PerfilXUsuario.class);
     }
 }

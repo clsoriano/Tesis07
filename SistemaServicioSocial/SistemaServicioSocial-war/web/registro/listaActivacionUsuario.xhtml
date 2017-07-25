@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <ui:define name="content">
+        <h1>Activar Usuario</h1>
+        <p:panel>
+            Registro / Activar Usuario
+        </p:panel> 
+        <p:separator/>
+        <h:form id="fAUsuario">
+            <p:panel id="pAUsuario" header="Solicitud de Usuario" toggleable="true">
+                <p:spacer width="80px"/>
+                <b:dataTable value="#{solicitudUsuario.usuarioList}" 
+                             var="u" 
+                             id="dAUsuario">
+                    <b:dataTableColumn label="Codigo Usuario">
+                        <h:outputText value="#{u.codUsuario}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Nombre">
+                        <h:outputText value="#{u.nbrUsuario}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Estado">
+                        <h:outputText value="#{u.estado == 'I' ? 'Inactivo':'Inactivo'}"/>
+                    </b:dataTableColumn>              
+                    <b:dataTableColumn label="Ver Usuario">
+                        <p:commandButton id="uVer"
+                                         title="Ver Usuario"
+                                         icon="fa fa-eye"
+                                         immediate="true"
+                                         action="#{solicitudUsuario.verUsuario(u)}"/> 
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Activar">
+                        <p:commandButton id="uActivar" 
+                                         title="Activar Usuario"
+                                         icon="fa fa-check" 
+                                         action="#{solicitudUsuario.activarUsuario(u)}"
+                                         update="growlGlobalError fAUsuario"
+                                         immediate="true">
+                            <p:confirm header="Confirmation" message="Esta seguro de activar el usuario?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+                    </b:dataTableColumn>
+                </b:dataTable>
+            </p:panel>
+        </h:form>
+        <p:dialog id="activaUsuario"
+                  widgetVar="modalActivaUsuario"
+                  header="Activar Usuario" 
+                  showEffect="fade" 
+                  modal="true"
+                  position="center center" 
+                  onShow="PF('modalActivaUsuariomodalActivaUsuario').initPosition()"
+                  style="position:absolute; top: 10px;"
+                  hideEffect="fade">
+            <!--<ui:include src="addEditUsuario.xhtml"/>-->
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>

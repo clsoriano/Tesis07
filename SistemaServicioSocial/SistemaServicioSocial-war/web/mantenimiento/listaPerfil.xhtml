@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <h:form id="fPerfil">
+        <b:commandButton value="Nuevo" 
+                         look="primary"
+                         iconAwesome="fa-plus" 
+                         action="#{perfilController.newPerfil()}"
+                         onsuccess="PF('modalAddEditPerfil').show();return false;"
+                         update="fPanelPerfil:fAddEditPerfil fPanelPerfil:fPerfil:pMod fPanelPerfil:fPerfil:pElim fPanelPerfil:fPerfil:pdPerfil"
+                         immediate="true"/>
+        <p:separator/>
+        <p:panel header="Perfil">
+            <b:dataTable id="pdPerfil"
+                         value="#{perfilController.listPerfil}"
+                         var="p"
+                         select="true"
+                         selectionMode="single"
+                         onselect="ajax:perfilController.setSelectedPerfil(p);"
+                         ondeselect="ajax:perfilController.setIsEditPerfil(false);"
+                         update="fPanelPerfil:fPerfil:pMod fPanelPerfil:fPerfil:pElim fPanelPerfil:fAddEditPerfil">
+                <b:dataTableColumn label="Codigo Perfil">
+                    <p:outputLabel value="#{p.codPerfil}"/>
+                </b:dataTableColumn>
+                <b:dataTableColumn label="Nombre perfil">
+                    <p:outputLabel value="#{p.nbrPerfil}"/>
+                </b:dataTableColumn>
+                <b:dataTableColumn label="Descripcion">
+                    <p:outputLabel value="#{p.descripcion}"/>
+                </b:dataTableColumn>
+            </b:dataTable>
+            <f:facet name="footer">
+                <b:commandButton id="pMod"
+                                 value="Modificar"
+                                 iconAwesome="fa-edit"
+                                 disabled="#{!perfilController.isEditPerfil}"
+                                 update="fPanelPerfil:fAddEditPerfil"
+                                 onclick="PF('modalAddEditPerfil').show();return false;"
+                                 immediate="true"/>
+                <b:commandButton id="pElim"
+                                 value="Eliminar"
+                                 iconAwesome="fa-trash"
+                                 disabled="#{!perfilController.isEditPerfil}"
+                                 immediate="true"
+                                 update="growlGlobalError"/>
+            </f:facet>
+        </p:panel>
+    </h:form>
+    <p:dialog id="addEditPerfil"
+              widgetVar="modalAddEditPerfil"
+              modal="true"
+              showEffect="fade" 
+              hideEffect="fade"
+              position="center center" 
+              onShow="PF('modalAddEditPerfil').initPosition()"
+              style="position:absolute; top: 10px;"
+              header="#{perfilController.isEditPerfil ? 'Modificacion':'Nuevo'} Perfil">
+        <ui:include src="addEditPerfil.xhtml"/>
+    </p:dialog>
+
+</ui:composition>

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:b="http://bootsfaces.net/ui">
+    <h2><span class="fa fa-user"/>Nuevo</h2>
+    <h:form id="fAddEditUsuario">
+        <p:panel>
+            <h:panelGrid columns="2" cellpadding="5" id="pgDataUsuario">
+                <p:outputLabel value="Codigo Usuario:"/>
+                <b:inputText renderLabel="false"
+                             id="uCodigoUsuario" 
+                             placeholder="Codigo Usuario"
+                             required="true" 
+                             value="#{usuarioBean.usuario.codUsuario}"
+                             immediate="true"
+                             disabled="#{usuarioBean.isEditUsuario}">
+                </b:inputText>
+                <p:outputLabel value="Nombre Usuario:"/>
+                <b:inputText label="Nombre"
+                             renderLabel="false"
+                             id="uNombreUsuario" 
+                             placeholder="Nombre completo" 
+                             value="#{usuarioBean.usuario.nbrUsuario}" 
+                             required="true"
+                             immediate="true">
+                </b:inputText>
+                <p:outputLabel value="Perfil Usuario:"/>
+                <p:selectOneMenu label="Perfil Usuario"                                 
+                                 id="uPerfilUsuario"
+                                 value="#{usuarioBean.perfilXUsuario.codPerfil}"
+                                 style="width:250px;">
+                    <f:selectItem itemLabel="- Seleccionar -" itemValue=""/>
+                    <f:selectItems value="#{perfilController.listPerfil}" var="m" itemValue="#{m.codPerfil}" itemLabel="#{m.nbrPerfil}"/>
+                </p:selectOneMenu>
+                <p:outputLabel value="Solicitar cambio contraseña:" 
+                               rendered="#{usuarioBean.isEditUsuario}"/>
+                <b:radiobutton value="#{usuarioBean.isCambioClave}" 
+                               rendered="#{usuarioBean.isEditUsuario}">
+                    <f:selectItem itemLabel="Si" itemValue="S"/>
+                    <f:selectItem itemLabel="No" itemValue="N"/>
+                </b:radiobutton>
+                <p:outputLabel value="Estado:"/>
+                <b:radiobutton value="#{usuarioBean.usuario.estado}" id="uEstado">   
+                    <f:selectItem itemLabel="Activo" itemValue="A" />
+                    <f:selectItem itemLabel="Inactivo" itemValue="I" />
+                </b:radiobutton>
+                <p:outputLabel value="Fecha Expiracion:"/>
+                <b:dateTimePicker id="uFechaExpiracion" 
+                                  placeholder="Fecha expiracion contraseña" 
+                                  value="#{usuarioBean.usuario.fechaExpiracion}">
+                </b:dateTimePicker>
+            </h:panelGrid>            
+            <f:facet name="footer">
+                <b:commandButton value="Guardar" 
+                                 iconAwesome="fa-save" 
+                                 update="growlGlobalError fUsuario"
+                                 action="#{usuarioBean.saveUsuario()}"
+                                 look="success" 
+                                 onsuccess="PF('modalAddEditUsuario').hide();return false;"/>
+                <b:commandButton value="Cancelar" 
+                                 iconAwesome="fa-close"
+                                 update="fUsuario"
+                                 look="danger" 
+                                 onclick="PF('modalAddEditUsuario').hide();return false;"
+                                 immediate="true"/>
+            </f:facet>
+        </p:panel>
+    </h:form>
+
+    <!--                <p:outputLabel value="Asociado A:"/>
+                <b:inputText label="Asociado" 
+                             renderLabel="false"
+                             id="uAsociadoA"    
+                             placeholder="Usuario asociado" 
+                             value="# {usuarioBean.usuario.asociadoA}">
+                </b:inputText>
+                <p:outputLabel value="Entidad Asociado A:"/>
+                <p:selectOneMenu label="Entidad Asociada" 
+                                 value="# {usuarioBean.usuario.codEntidadAsociada}" 
+                                 id="uEntidadAsociadoA"
+                                 style="width:250px;">
+                    <f:selectItem itemLabel="- Seleccionar -" itemValue=""/>
+                    <f:selectItems value="# {menuBean.listMenuPadre}" var="m" itemValue="# {m.codMenu}" itemLabel="# {m.descripcion}"/>
+                </p:selectOneMenu>   -->
+
+</ui:composition>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html>
+    <body>
+        <img src="http://www.uca.edu.sv/servicio-social/wp-content/uploads/icon3.jpg"/>
+        <div style="position: absolute;left: 100px;width: 400px;">
+            <h1>Notificacion de Usuario</h1>
+            <div>
+                Estimado usuario se notifica que el dia de hoy #{mail.date} solicitaste
+                la creaci&oacute;n de usuario en el <b>sistema de servicio social estudiantil</b>.
+                En la parte inferior se detallan los datos requeridos para ingresar la sistema.
+            </div>
+            <br/>
+            <div>
+                Tu nombre de Usuario:<b>#{mail.usuario}</b>
+                <br/>
+                Tu Password:<b>#{mail.password}</b>
+            </div>
+            <br/>
+            <div>
+                <b>Centro de Servicio Social</b>
+                <br/>
+                Universidad Centroamericana "Jos&eacute; Sime&oacute;n Ca&ntilde;as".<br/>
+                Tel&eacute;fonos: 2210-6600, ext. 427 o 2210-6680.<br/>
+                css@uca.edu.sv 
+            </div>
+        </div>
+    </body>
+</html>

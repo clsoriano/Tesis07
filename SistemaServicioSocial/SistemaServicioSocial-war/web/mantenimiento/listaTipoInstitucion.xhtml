@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/layoutTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <ui:define name="content">
+        <h1>
+            Grupo Institucion/Tipo Institucion
+        </h1>
+        <h:form id="fGrupo">
+            <p:panel header="Grupo Institucion" id="pGrupo" toggleable="true">
+                <b:dataTable value="#{grupoTipoInstitucionController.grupoInstitucionList}" 
+                             var="g"
+                             id="pdGrupo"
+                             onselect="ajax:grupoTipoInstitucionController.setSelectedGrupoInstitucion(g);"
+                             ondeselect="ajax:grupoTipoInstitucionController.setIsEditGrupo(false);"
+                             select="true"
+                             selectionMode="single" 
+                             update="fGrupo:gMod fGrupo:gElim fAddEditGrupo fTipo fTipo:tAdd">
+                    <b:dataTableColumn label="Codigo Grupo">
+                        <h:outputText value="#{g.codGrupoInstitucion}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Nombre Grupo Institucion">
+                        <h:outputText value="#{g.nbrGrupoInstitucion}"/>
+                    </b:dataTableColumn>
+                </b:dataTable>
+                <f:facet name="footer">
+                    <b:commandButton value="Nuevo"
+                                     look="primary"
+                                     iconAwesome="fa-plus"
+                                     action="#{grupoTipoInstitucionController.newGrupoInstitucion()}"
+                                     onsuccess="PF('modalAddEditGrupo').show();return false;"
+                                     update="fAddEditGrupo fGrupo:gMod fGrupo:gElim fGrupo:pdGrupo"
+                                     immediate="true"/>
+                    <b:commandButton id="gMod"
+                                     value="Modificar"
+                                     iconAwesome="fa-pencil"
+                                     disabled="#{!grupoTipoInstitucionController.isEditGrupo}"
+                                     onclick="PF('modalAddEditGrupo').show();return false;"/>
+                    <b:commandButton id="gElim"
+                                     value="Eliminar"
+                                     iconAwesome="fa-trash"
+                                     disabled="#{!grupoTipoInstitucionController.isEditGrupo}"
+                                     action="#{grupoTipoInstitucionController.removeGrupoInstitucion()}"/>
+                </f:facet>
+            </p:panel>
+        </h:form>
+        <h:form id="fTipo">
+            <p:panel header="Tipo Institucion" id="pTipo" toggleable="true">
+                <b:dataTable value="#{grupoTipoInstitucionController.tipoInstitucionList}" 
+                             var="t"
+                             id="pdTipo"
+                             onselect="ajax:grupoTipoInstitucionController.setSelectedTipoInstitucion(t);"
+                             ondeselect="ajax:grupoTipoInstitucionController.setIsEditTipo(false);"
+                             select="true"
+                             selectionMode="single" 
+                             update="fTipo:tMod fTipo:tElim fAddEditTipo">
+                    <b:dataTableColumn label="Nombre Grupo Institucion">
+                        <h:outputText value="#{t.codGrupoInstitucion.nbrGrupoInstitucion}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Codigo Grupo">
+                        <h:outputText value="#{t.corrTipoInstitucion}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Nombre Grupo Institucion">
+                        <h:outputText value="#{t.nbrTipoInstitucion}"/>
+                    </b:dataTableColumn>
+                </b:dataTable>
+                <f:facet name="footer">    
+                    <b:commandButton value="Nuevo" 
+                                     id="tAdd"
+                                     look="primary" 
+                                     iconAwesome="fa-plus" 
+                                     action="#{grupoTipoInstitucionController.newGrupoInstitucion()}"
+                                     onsuccess="PF('modalAddEditTipo').show();return false;"
+                                     update="fAddEditTipo fTipo:tMod fTipo:tElim fTipo:pdTipo"
+                                     disabled="#{!grupoTipoInstitucionController.isEditGrupo}"
+                                     immediate="true"/>
+                    <b:commandButton id="tMod" 
+                                     value="Modificar" 
+                                     iconAwesome="fa-pencil" 
+                                     disabled="#{!grupoTipoInstitucionController.isEditTipo}" 
+                                     onclick="PF('modalAddEditTipo').show();return false;"/>
+                    <b:commandButton id="tElim" 
+                                     value="Eliminar"
+                                     iconAwesome="fa-trash" 
+                                     disabled="#{!grupoTipoInstitucionController.isEditTipo}" 
+                                     action="#{grupoTipoInstitucionController.removeTipoInstitucion()}"/>
+                </f:facet>
+            </p:panel>
+        </h:form>
+        <p:dialog id="addEditGrupo"
+                  widgetVar="modalAddEditGrupo"
+                  showEffect="fade" 
+                  hideEffect="fade"
+                  modal="true"
+                  position="center center" 
+                  onShow="PF('modalAddEditGrupo').initPosition()"
+                  style="position:absolute; top: 10px;"
+                  header="#{grupoTipoInstitucionController.isEditGrupo ? 'Modificacion':'Nuevo'} Grupo">
+            <ui:include src="addEditGrupo.xhtml"/>
+        </p:dialog>
+        <p:dialog id="addEditTipo"
+                  widgetVar="modalAddEditTipo"
+                  showEffect="fade" 
+                  hideEffect="fade"
+                  modal="true"
+                  position="center center" 
+                  onShow="PF('modalAddEditTipo').initPosition()"
+                  style="position:absolute; top: 10px;"
+                  header="#{grupoTipoInstitucionController.isEditTipo ? 'Modificacion':'Nuevo'} Tipo">
+            <ui:include src="addEditTipo.xhtml"/>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>

@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author jcsoriano
  */
 @Entity
-@Table(name = "SS_SUB_CATALOGO", schema = "SS")
+@Table(name = "SS_SUB_CATALOGO")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SsSubCatalogo.findAll", query = "SELECT s FROM SsSubCatalogo s")})
@@ -41,7 +41,7 @@ public class SsSubCatalogo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "COD_SUB_CATALOGO")
-    @SequenceGenerator(sequenceName = "SEQ_SS_SUB_CATALOGO", name = "SEQ_SS_SUB_CATALOGO", initialValue = 1, allocationSize = 1, schema = "SS")
+    @SequenceGenerator(sequenceName = "SEQ_SS_SUB_CATALOGO", name = "SEQ_SS_SUB_CATALOGO", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_SS_SUB_CATALOGO")
     private Long codSubCatalogo;
     @JoinColumn(name = "COD_CATALOGO", referencedColumnName = "COD_CATALOGO")
@@ -55,7 +55,7 @@ public class SsSubCatalogo implements Serializable {
     private String descripcion;
     @Size(max = 1)
     @Column(name = "ESTADO")
-    private String estado;
+    private Character estado;
     @Size(max = 100)
     @Column(name = "ADICIONADO_POR")
     private String adicionadoPor;
@@ -100,11 +100,11 @@ public class SsSubCatalogo implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public String getEstado() {
+    public Character getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Character estado) {
         this.estado = estado;
     }
 

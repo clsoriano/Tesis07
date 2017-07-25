@@ -9,39 +9,78 @@
                 xmlns="http://www.w3.org/1999/xhtml">   
 
     <ui:define name="content">
-        <h:form id="ltul">
-            <h1>Usuarios</h1>
-            <p><b:commandButton value="Nuevo" look="primary" icon="glyphicon glyphicon-plus" action="#{usuarioBean.newUsuario()}"/></p>
-            <b:form id="ltusuL">
-                <p:panel id="usuarioList">
-                    <b:dataTable value="#{usuarioBean.listUsuario}" 
-                                 var="u" 
-                                 id="usuarios"
-                                 onselect="ajax:usuarioBean.setUsuario(u);"
-                                 ondeselect="ajax:usuarioBean.setEditable(false);"
-                                 select="true"
-                                 selectionMode="single" 
-                                 update="growlGlobalError ltul:ltusuL:modUsu ltul:ltusuL:elUsu">
-                        <b:dataTableColumn label="Codigo Usuario">
-                            <h:outputText value="#{u.codUsuario}"/>
-                        </b:dataTableColumn>
-                        <b:dataTableColumn label="Nombre">
-                            <h:outputText value="#{u.nbrUsuario}"/>
-                        </b:dataTableColumn>
-                        <b:dataTableColumn label="Estado">
-                            <h:outputText value="#{u.estado}"/>
-                        </b:dataTableColumn>
-                        <b:dataTableColumn label="Fecha expiracion">
-                            <h:outputText value="#{u.fechaExpiracion}"/>
-                        </b:dataTableColumn>                    
-                    </b:dataTable>
-                    <f:facet name="footer">
-                        <b:commandButton id="modUsu" value="Modificar" iconAwesome="fa-pencil" disabled="#{!usuarioBean.editable}" action="#{usuarioBean.editUsuario()}"/>
-                        <b:commandButton id="elUsu" value="Eliminar" iconAwesome="fa-trash" update="usuarios" action="#{usuarioBean.remove()}" disabled="#{!usuarioBean.editable}"/>
-                    </f:facet>
-                </p:panel>
-            </b:form>
+        <h1>Usuario</h1>
+        <p:panel>
+            Mantenimiento / Usuario
+        </p:panel> 
+        <p:separator/>
+        <h:form id="fUsuario">
+            <p:panel id="pUsuario" header="Usuario" toggleable="true">
+                <b:commandButton value="Nuevo" 
+                                 look="primary"
+                                 iconAwesome="fa-plus"
+                                 action="#{usuarioBean.newUsuario()}"
+                                 onsuccess="PF('modalAddEditUsuario').show();return false;"
+                                 update="fUsuario:dUsuario fUsuario:uMod fUsuario:uElim fAddEditUsuario"
+                                 immediate="true"/>
+                <p:spacer width="80px"/>
+                <b:dataTable value="#{usuarioBean.listUsuario}" 
+                             var="u" 
+                             id="dUsuario"
+                             onselect="ajax:usuarioBean.setSelectedUsuario(u);"
+                             ondeselect="ajax:usuarioBean.setIsEditUsuario(false);"
+                             select="true"
+                             selectionMode="single" 
+                             update="fUsuario:uMod fUsuario:uElim fAddEditUsuario">
+                    <b:dataTableColumn label="Codigo Usuario">
+                        <h:outputText value="#{u.codUsuario}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Nombre">
+                        <h:outputText value="#{u.nbrUsuario}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Estado">
+                        <h:outputText value="#{u.estado}"/>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Fecha expiracion">
+                        <h:outputText value="#{u.fechaExpiracion}"/>
+                    </b:dataTableColumn>                    
+                </b:dataTable>
+                <f:facet name="footer">
+                    <p:commandButton id="uMod" 
+                                     value="Modificar" 
+                                     icon="fa fa-edit" 
+                                     disabled="#{!usuarioBean.isEditUsuario}" 
+                                     onclick="PF('modalAddEditUsuario').show();return false;"
+                                     update="fAddEditUsuario"
+                                     immediate="true"/>
+                    <p:commandButton id="uElim" 
+                                     value="Eliminar" 
+                                     icon="fa fa-trash" 
+                                     action="#{usuarioBean.removeUsuario()}" 
+                                     disabled="#{!usuarioBean.isEditUsuario}"
+                                     update="growlGlobalError fUsuario"
+                                     immediate="true">
+                        <p:confirm header="Confirmation" message="Esta seguro de eliminar el usuario?" icon="ui-icon-alert" />
+                    </p:commandButton>
+
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+                </f:facet>
+            </p:panel>
         </h:form>
+        <p:dialog id="addEditUsuario"
+                  widgetVar="modalAddEditUsuario"
+                  header="#{usuarioBean.isEditUsuario ? 'Modificacion':'Nuevo'}" 
+                  showEffect="fade" 
+                  modal="true"
+                  position="center center" 
+                  onShow="PF('modalAddEditUsuario').initPosition()"
+                  style="position:absolute; top: 10px;"
+                  hideEffect="fade">
+            <ui:include src="addEditUsuario.xhtml"/>
+        </p:dialog>
     </ui:define>
 
 </ui:composition>
